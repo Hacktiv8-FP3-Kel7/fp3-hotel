@@ -1,7 +1,7 @@
 import invariant from "invariant";
 import * as SecureStore from "expo-secure-store";
 import * as React from "react";
-import { TokenResult } from "../api-hooks/auth/auth.model";
+import { TokenResult } from "../../api-hooks/auth/auth.model";
 
 export interface CredentialStateProps {
   credential?: TokenResult;

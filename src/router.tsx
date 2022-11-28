@@ -4,6 +4,7 @@ import {
   createStackNavigator,
   StackNavigationProp,
 } from "@react-navigation/stack";
+import { useCredential } from "./common/containers/CredentialContainer";
 import HomeScreen, {
   HOME_SCREEN_NAME,
   HOME_SCREEN_PARAMS,
@@ -29,11 +30,20 @@ const Tabs = createBottomTabNavigator<TabsParamList>();
 const Stack = createStackNavigator<StackParamList>();
 
 export default function Router() {
+  const { credential } = useCredential();
+  const isAuthenticated = !!credential;
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name={LOGIN_SCREEN_NAME} component={LoginScreen} />
-        <Stack.Screen name={HOME_SCREEN_NAME} component={HomeScreen} />
+        {isAuthenticated ? (
+          <>
+            <Stack.Screen name={HOME_SCREEN_NAME} component={HomeScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name={LOGIN_SCREEN_NAME} component={LoginScreen} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

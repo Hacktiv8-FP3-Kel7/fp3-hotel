@@ -1,6 +1,7 @@
 import { createModel } from "@rematch/core";
 import { produce } from "immer";
-import { Dispatch } from "react";
+//@ts-expect-error
+import { Dispatch } from "react-redux";
 import { RematchDispatch, RootModel, RootState } from ".";
 import { User } from "../api-hooks/user/user.model";
 
@@ -27,24 +28,24 @@ const auth = createModel<RootModel>()({
       };
     },
   },
-  effects: {
-    async logout(): Promise<void> {
-      this.reset();
-    },
-  },
 });
 
-const userSelector = (state: RootState) => state.auth.data;
+const userSelector = (state: RootState) => state.auth?.data;
 
 export const authSelector = {
   userSelector,
 };
 
-export const authDispatcher = (dispatch: RematchDispatch) => {
+//Dispatcher
+export const authDispatcher = (dispatch: Dispatch) => {
   const authDispatch = dispatch as RematchDispatch;
+
   return {
     reset: () => {
-      return authDispatch.auth.logout();
+      return authDispatch.auth.reset();
+    },
+    setUser: (payload: User) => {
+      return authDispatch.auth.setUser(payload);
     },
   };
 };
