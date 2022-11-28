@@ -1,4 +1,4 @@
-import { init, Models, RematchRootState } from "@rematch/core";
+import { init, Models, RematchDispatch, RematchRootState } from "@rematch/core";
 import auth from "./auth";
 
 export interface RootModel extends Models<RootModel> {
@@ -7,7 +7,5 @@ export interface RootModel extends Models<RootModel> {
 
 export const models: RootModel = { auth };
 
-const store = init({ models });
-
-export type RematchDispatch = typeof store.dispatch;
-export type RootState = RematchRootState<typeof models>;
+export type Dispatch = RematchDispatch<RootModel>;
+export type RootState = RematchRootState<RootModel>;

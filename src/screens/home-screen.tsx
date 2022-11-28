@@ -2,6 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useCredential } from "../common/containers/CredentialContainer";
+import { Dispatch } from "../redux";
 import { authDispatcher, authSelector } from "../redux/auth";
 import { StackNavigationScreenProps } from "../router";
 
@@ -13,18 +14,11 @@ interface Props extends StackNavigationScreenProps<typeof HOME_SCREEN_NAME> {}
 export default function HomeScreen(props: Props) {
   const user = useSelector(authSelector.userSelector);
   const { setCredential } = useCredential();
-  const dispatch = useDispatch();
-  const { setUser } = authDispatcher(dispatch);
+  const dispatch = useDispatch<Dispatch>();
   const onClickLogout = React.useCallback(() => {
-    setUser({
-      firstName: "Johnd",
-      email: "johnd@gmail.com",
-      gender: "male",
-      lastName: "Johndddd",
-    });
-    // setCredential(undefined);
+    dispatch.auth.reset();
+    setCredential(undefined);
   }, [setCredential]);
-  console.log(user?.firstName);
   return (
     <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
       <TouchableOpacity
