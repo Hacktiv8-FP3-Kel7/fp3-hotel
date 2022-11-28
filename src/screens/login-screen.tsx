@@ -1,8 +1,11 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
-import Text from "../components/elements/text";
+import { View } from "react-native";
+import { useDispatch } from "react-redux";
+import { useLogin } from "../api-hooks/auth/auth.mutation";
+import { useCredential } from "../common/containers/CredentialContainer";
+import ToastHelper from "../common/helpers/toast";
 import { StackNavigationScreenProps } from "../router";
+import Text from "../components/elements/text";
 import colors from "../styles/color";
 import typography from "../styles/typography";
 import { HOME_SCREEN_NAME } from "./home-screen";
@@ -19,7 +22,14 @@ export type LOGIN_SCREEN_PARAMS = undefined;
 interface Props extends StackNavigationScreenProps<typeof LOGIN_SCREEN_NAME> {}
 
 export default function LoginScreen(props: Props) {
-  const defaultValues = React.useMemo(() => ({ username: "" }), []);
+  const { mutateAsync: login } = useLogin();
+  const [isLoggingIn, setIsLoggingIn] = React.useState(false);
+  const dispatch = useDispatch();
+  const { setCredential } = useCredential();
+  const defaultValues = React.useMemo(
+    () => ({ username: "", password: "" }),
+    []
+  );
   const yupSchema = React.useMemo(
     () =>
       Yup.object().shape({
@@ -38,16 +48,24 @@ export default function LoginScreen(props: Props) {
 
   const onSubmit = React.useCallback(async (values: typeof defaultValues) => {
     try {
-      console.log(values);
-    } catch (e) {}
+      const res = await login({
+        username: values.username,
+        password: values.password,
+      });
+      setCredential({
+        token: res.data.token,
+      });
+      dispatch.auth.setUser({
+        firstName: values.username,
+        lastName: "",
+        email: "",
+        gender: "",
+      });
+      ToastHelper.success("Berhasil Login");
+    } catch (e: any) {
+      ToastHelper.error("Error");
+    }
   }, []);
-
-  const onClickLogin = React.useCallback(() => {
-    props.navigation.navigate({
-      name: HOME_SCREEN_NAME,
-      params: undefined,
-    });
-  }, [props]);
 
   return (
     <FormProvider {...methods}>
