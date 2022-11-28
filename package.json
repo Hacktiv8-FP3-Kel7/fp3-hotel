@@ -9,16 +9,16 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.17.11",
     "@hookform/resolvers": "^2.9.10",
+    "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-navigation/bottom-tabs": "^6.4.1",
     "@react-navigation/native": "^6.0.14",
     "@react-navigation/stack": "^6.3.5",
     "@rematch/core": "^2.2.0",
     "@rematch/loading": "^2.1.2",
     "@rematch/persist": "^2.1.2",
-    "axios": "^1.2.0",
     "@types/react-native-vector-icons": "^6.4.12",
+    "axios": "^1.2.0",
     "expo": "~47.0.6",
     "expo-secure-store": "^12.0.0",
     "expo-status-bar": "~1.4.2",
@@ -44,7 +44,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@types/invariant": "^2.2.35",
-    "@types/react": "~18.0.14",
+    "@types/react": "~18.0.24",
     "@types/react-native": "~0.70.6",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",

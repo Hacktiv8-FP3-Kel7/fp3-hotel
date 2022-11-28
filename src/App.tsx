@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store";
 import CredentialPersist from "./common/containers/CredentialPersist";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
 
 const queryClient = new QueryClient();
@@ -19,8 +20,10 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <CredentialPersist>
             <View style={styles.container}>
-              <Router />
-              <Toast position="top" topOffset={40} />
+              <GestureHandlerRootView style={{ flex: 1 }}>
+                <Router />
+                <Toast position="top" topOffset={40} />
+              </GestureHandlerRootView>
             </View>
           </CredentialPersist>
         </QueryClientProvider>

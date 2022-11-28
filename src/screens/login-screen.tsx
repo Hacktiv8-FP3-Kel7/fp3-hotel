@@ -25,26 +25,10 @@ export default function LoginScreen(props: Props) {
   const [isLoggingIn, setIsLoggingIn] = React.useState(false);
   const dispatch = useDispatch();
   const { setCredential } = useCredential();
-  const onClickLogin = React.useCallback(async () => {
-    try {
-      const res = await login({
-        username: "johnd",
-        password: "m38rmF$",
-      });
-      setCredential({
-        token: res.data.token,
-      });
-      dispatch.auth.setUser({
-        firstName: "johnd",
-        lastName: "",
-        email: "",
-        gender: "",
-      });
-      ToastHelper.success("Berhasil Login");
-    } catch (e: any) {
-      ToastHelper.error("Error");
-    }
-  const defaultValues = React.useMemo(() => ({ username: "" }), []);
+  const defaultValues = React.useMemo(
+    () => ({ username: "", password: "" }),
+    []
+  );
   const yupSchema = React.useMemo(
     () =>
       Yup.object().shape({
@@ -63,16 +47,24 @@ export default function LoginScreen(props: Props) {
 
   const onSubmit = React.useCallback(async (values: typeof defaultValues) => {
     try {
-      console.log(values);
-    } catch (e) {}
+      const res = await login({
+        username: values.username,
+        password: values.password,
+      });
+      setCredential({
+        token: res.data.token,
+      });
+      dispatch.auth.setUser({
+        firstName: values.username,
+        lastName: "",
+        email: "",
+        gender: "",
+      });
+      ToastHelper.success("Berhasil Login");
+    } catch (e: any) {
+      ToastHelper.error("Error");
+    }
   }, []);
-
-  const onClickLogin = React.useCallback(() => {
-    props.navigation.navigate({
-      name: HOME_SCREEN_NAME,
-      params: undefined,
-    });
-  }, [props]);
 
   return (
     <FormProvider {...methods}>
