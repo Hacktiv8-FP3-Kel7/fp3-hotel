@@ -16,7 +16,6 @@ export default function LoginScreen(props: Props) {
   const { mutateAsync: login } = useLogin();
   const [isLoggingIn, setIsLoggingIn] = React.useState(false);
   const dispatch = useDispatch();
-  const { setUser } = authDispatcher(dispatch);
   const { setCredential } = useCredential();
   const onClickLogin = React.useCallback(async () => {
     try {
@@ -27,7 +26,7 @@ export default function LoginScreen(props: Props) {
       setCredential({
         token: res.data.token,
       });
-      setUser({
+      dispatch.auth.setUser({
         firstName: "johnd",
         lastName: "",
         email: "",

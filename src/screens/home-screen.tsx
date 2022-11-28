@@ -19,6 +19,7 @@ export default function HomeScreen(props: Props) {
     dispatch.auth.reset();
     setCredential(undefined);
   }, [setCredential]);
+
   return (
     <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
       <TouchableOpacity
