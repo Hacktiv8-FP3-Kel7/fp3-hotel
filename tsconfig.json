@@ -20,6 +20,7 @@
     "types": ["react", "react-native", "node"],
     "emitDecoratorMetadata": true
   },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
     "node_modules",
     "babel.config.js",

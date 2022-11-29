@@ -1,18 +1,20 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer, RouteProp } from "@react-navigation/native";
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NavigationContainer, RouteProp} from '@react-navigation/native';
 import {
   createStackNavigator,
   StackNavigationProp,
-} from "@react-navigation/stack";
-import { useCredential } from "./common/containers/CredentialContainer";
+} from '@react-navigation/stack';
+import * as React from 'react';
+
+import {useCredential} from './common/containers/CredentialContainer';
 import HomeScreen, {
   HOME_SCREEN_NAME,
   HOME_SCREEN_PARAMS,
-} from "./screens/home-screen";
+} from './screens/home-screen';
 import LoginScreen, {
   LOGIN_SCREEN_NAME,
   LOGIN_SCREEN_PARAMS,
-} from "./screens/login-screen";
+} from './screens/login-screen';
 
 export interface StackNavigationScreenProps<T extends keyof StackParamList> {
   navigation: StackNavigationProp<StackParamList, T>;
@@ -30,11 +32,11 @@ const Tabs = createBottomTabNavigator<TabsParamList>();
 const Stack = createStackNavigator<StackParamList>();
 
 export default function Router() {
-  const { credential } = useCredential();
+  const {credential} = useCredential();
   const isAuthenticated = !!credential;
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
         {isAuthenticated ? (
           <>
             <Stack.Screen name={HOME_SCREEN_NAME} component={HomeScreen} />
