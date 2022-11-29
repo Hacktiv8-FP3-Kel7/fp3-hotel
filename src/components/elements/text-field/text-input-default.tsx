@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   TextInput,
-  TextInputProps,
+  TextInputProps as RawTextInputProps,
   StyleSheet,
   View,
   NativeSyntheticEvent,
@@ -11,11 +11,11 @@ import {
   Pressable,
 } from 'react-native';
 
-import color from '../../styles/color';
-import size from '../../styles/size';
-import useCustomFont from '../../hooks/use-custom-font';
+import color from '../../../styles/color';
+import size from '../../../styles/size';
+import useCustomFont from '../../../hooks/use-custom-font';
 
-interface Props extends TextInputProps {
+export interface TextInputProps extends RawTextInputProps {
   value?: string;
   children?: any;
   ref?: React.Ref<TextInput>;
@@ -30,12 +30,12 @@ interface Props extends TextInputProps {
   mask?: string;
 }
 
-interface AnimatedTextInputProps extends Props {
+interface AnimatedTextInputProps extends TextInputProps {
   isError?: boolean;
   requiredText?: boolean;
 }
 
-function CustomTextInput(props: Props, ref: any) {
+function CustomTextInput(props: TextInputProps, ref: any) {
   const [isFocused, setIsFocused] = React.useState(false);
   const customRef = React.useRef<TextInput>();
   const {
@@ -108,11 +108,13 @@ function CustomTextInput(props: Props, ref: any) {
         multiline && styles.multilineContainer,
         isError && containerStyle,
         textInputContainerStyle,
-      ]}>
+      ]}
+    >
       {leftIconComponent && (
         <Pressable
           onPress={() => _handleOnPressView(leftIconOnPress)}
-          style={styles.leftIconContainer}>
+          style={styles.leftIconContainer}
+        >
           <View>{leftIconComponent(iconSize, currentIconColor)}</View>
         </Pressable>
       )}
@@ -133,7 +135,8 @@ function CustomTextInput(props: Props, ref: any) {
           style={styles.rightIconContainer}
           onPress={() => {
             rightIconOnPress && rightIconOnPress();
-          }}>
+          }}
+        >
           {rightIconComponent(iconSize, currentIconColor)}
         </Pressable>
       )}

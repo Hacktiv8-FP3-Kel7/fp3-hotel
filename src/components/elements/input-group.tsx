@@ -1,8 +1,8 @@
-import React from "react";
-import Text from "./text";
-import { StyleSheet, View, ViewProps } from "react-native";
-import colors from "../../styles/color";
-import size from "../../styles/size";
+import React from 'react';
+import Text from './text';
+import { StyleSheet, View, ViewProps } from 'react-native';
+import colors from '../../styles/color';
+import size from '../../styles/size';
 
 export interface InputGroupProps extends ViewProps {
   children: React.ReactNode;
@@ -13,14 +13,7 @@ export interface InputGroupProps extends ViewProps {
 }
 
 export default function InputGroup(props: InputGroupProps) {
-  const {
-    error,
-    style,
-    children,
-    suffix,
-    loading = false,
-    required = false,
-  } = props;
+  const { error, style, children, suffix, loading = false, required = false } = props;
 
   return (
     <View style={style}>
@@ -43,14 +36,14 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   content: {
-    flexDirection: "column",
+    flexDirection: 'column',
     flexGrow: 1,
     flexShrink: 1,
   },
   label: {
     color: colors.sonicSilver,
     fontSize: size.inputLabel,
-    position: "absolute",
+    position: 'absolute',
     top: size.inputBottomPadding,
     left: size.inputHorizontalPadding,
   },
@@ -67,6 +60,6 @@ const styles = StyleSheet.create({
   required: {
     color: colors.error,
     fontSize: 13,
-    fontWeight: "500",
+    fontWeight: '500',
   },
 });

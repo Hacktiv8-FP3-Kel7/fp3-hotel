@@ -2,22 +2,23 @@ import * as React from 'react';
 import {
   StyleProp,
   ViewStyle,
-  TextInputProps,
   StyleSheet,
   View,
   // Text,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {useFormContext, useController} from 'react-hook-form';
-import Text from '../../elements/text';
+import { useFormContext, useController } from 'react-hook-form';
+import Text from '../text';
 import typography from '../../../styles/typography';
-import InputGroup from '../../elements/input-group';
+import InputGroup from '../input-group';
 import colors from '../../../styles/color';
 import size from '../../../styles/size';
-import TextInput from '../../elements/text-input';
+import TextInput, { TextInputProps } from './text-input-default';
+import { FormContext } from '../form';
+import { InputProps } from '../field-type';
 
-export interface CustomTextInputProps extends TextInputProps {
+export interface TextFieldProps extends TextInputProps, InputProps {
   name: string;
   type: 'normal' | 'phone' | 'password' | 'numeric';
   label?: React.ReactNode;
@@ -34,12 +35,10 @@ export interface CustomTextInputProps extends TextInputProps {
   bottomSheet?: boolean;
 }
 
-export default function TextField(props: CustomTextInputProps) {
+export default function TextField(props: TextFieldProps) {
   const {
     type,
     dialCode = '',
-    name,
-    required,
     onAfterChange,
     rightIconOnPress,
     label,
@@ -47,16 +46,14 @@ export default function TextField(props: CustomTextInputProps) {
     ...restProps
   } = props;
 
-  const {control} = useFormContext();
-  const {field, fieldState} = useController({
-    name,
-    control,
-  });
+  const { control } = useFormContext<any>();
+  const { field, fieldState } = useController({ control, name: props.name });
+  const { editable } = React.useContext(FormContext);
 
   const [showText, setShowText] = React.useState<boolean>(false);
 
   const onToggle = React.useCallback(() => {
-    setShowText(prev => !prev);
+    setShowText((prev) => !prev);
   }, []);
 
   let content: React.ReactNode = null;
@@ -79,8 +76,7 @@ export default function TextField(props: CustomTextInputProps) {
           break;
         case 'numeric':
           let output = value.replace(/[^0-9.]/g, '').split('.');
-          const newText =
-            output.shift() + (output.length ? '.' + output.join('') : '');
+          const newText = output.shift() + (output.length ? '.' + output.join('') : '');
           newValue = newText;
 
           break;
@@ -101,10 +97,11 @@ export default function TextField(props: CustomTextInputProps) {
       } = field;
       content = (
         <TextInput
+          {...restProps}
+          {...normalRestFields}
+          editable={editable}
           isError={!!fieldState.error}
           onChangeText={_onChange}
-          {...normalRestFields}
-          {...restProps}
         />
       );
       break;
@@ -116,11 +113,12 @@ export default function TextField(props: CustomTextInputProps) {
       } = field;
       content = (
         <TextInput
-          isError={!!fieldState.error}
-          onChangeText={_onChange}
-          keyboardType="numeric"
-          {...numericRestFields}
           {...restProps}
+          {...numericRestFields}
+          editable={editable}
+          isError={!!fieldState.error}
+          keyboardType="numeric"
+          onChangeText={_onChange}
         />
       );
       break;
@@ -137,11 +135,11 @@ export default function TextField(props: CustomTextInputProps) {
           </View>
           <View style={styles.flex}>
             <TextInput
+              {...restProps}
+              {...phoneRestFields}
+              editable={editable}
               isError={!!fieldState.error}
               keyboardType="numeric"
-              required={required}
-              {...phoneRestFields}
-              {...restProps}
               onChangeText={_onChange}
               rightIconOnPress={rightIconOnPress}
             />
@@ -158,7 +156,8 @@ export default function TextField(props: CustomTextInputProps) {
       content = (
         <>
           <TextInput
-            required={required}
+            {...restProps}
+            {...passwordRestFields}
             isError={!!fieldState.error}
             rightIconOnPress={onToggle}
             rightIconComponent={() => (
@@ -170,8 +169,6 @@ export default function TextField(props: CustomTextInputProps) {
             )}
             secureTextEntry={!showText}
             onChangeText={_onChange}
-            {...passwordRestFields}
-            {...restProps}
           />
         </>
       );
@@ -182,13 +179,9 @@ export default function TextField(props: CustomTextInputProps) {
     if (typeof label === 'string') {
       return (
         <View style={styles.mb6}>
-          <Text
-            style={[
-              typography.body,
-              {color: isError ? colors.red : colors.label},
-            ]}>
+          <Text style={[typography.body, { color: isError ? colors.red : colors.label }]}>
             {label}
-            {required && <Text style={styles.requiredText}>{'    *'}</Text>}
+            {restProps.required && <Text style={styles.requiredText}>{'    *'}</Text>}
           </Text>
         </View>
       );
@@ -197,17 +190,16 @@ export default function TextField(props: CustomTextInputProps) {
     return (
       <View style={styles.mb6}>
         {label}
-        {required && <Text style={styles.requiredText}>{'    *'}</Text>}
+        {restProps.required && <Text style={styles.requiredText}>{'    *'}</Text>}
       </View>
     );
   };
 
   return (
-    <InputGroup
-      error={!!fieldState.error}
-      style={[styles.inputGroup, containerStyle]}>
+    <InputGroup error={!!fieldState.error} style={[styles.inputGroup, containerStyle]}>
       {label && renderLabel(!!fieldState.error)}
       {content}
+      {!!fieldState.error?.message && <Text>{fieldState.error?.message}</Text>}
     </InputGroup>
   );
 }
