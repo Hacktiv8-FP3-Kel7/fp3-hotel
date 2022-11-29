@@ -13,25 +13,6 @@ interface Props extends StackNavigationScreenProps<typeof HOME_SCREEN_NAME> {}
 
 export default function HomeScreen(props: Props) {
   const user = useSelector(authSelector.userSelector);
-  const { setCredential } = useCredential();
-  const dispatch = useDispatch<Dispatch>();
-  const onClickLogout = React.useCallback(() => {
-    dispatch.auth.reset();
-    setCredential(undefined);
-  }, [setCredential]);
 
-  return (
-    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-      <TouchableOpacity
-        onPress={onClickLogout}
-        style={{
-          padding: 16,
-          borderWidth: 1,
-          borderRadius: 12,
-        }}
-      >
-        <Text>{'Logout'}</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  return <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}></View>;
 }
