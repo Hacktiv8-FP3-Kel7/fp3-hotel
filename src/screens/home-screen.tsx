@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useCredential } from '../common/containers/CredentialContainer';
 import { RematchDispatcher } from '../redux';
 import { authSelector } from '../redux/auth';
-import { StackNavigationScreenProps } from '../router';
+import { TabNavigationScreenProps } from '../router';
 
 export const HOME_SCREEN_NAME = 'Home Screen';
 export type HOME_SCREEN_PARAMS = undefined;
 
-interface Props extends StackNavigationScreenProps<typeof HOME_SCREEN_NAME> {}
+interface Props extends TabNavigationScreenProps<typeof HOME_SCREEN_NAME> {}
 
 export default function HomeScreen(props: Props) {
   const user = useSelector(authSelector.userSelector);

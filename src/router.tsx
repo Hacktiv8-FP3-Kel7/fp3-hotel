@@ -1,7 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, NavigatorScreenParams, RouteProp } from '@react-navigation/native';
+import { BottomTabNavigationProp, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  CompositeNavigationProp,
+  NavigationContainer,
+  NavigatorScreenParams,
+  RouteProp,
+} from '@react-navigation/native';
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import { useCredential } from './common/containers/CredentialContainer';
 import HomeScreen, { HOME_SCREEN_NAME, HOME_SCREEN_PARAMS } from './screens/home-screen';
@@ -29,6 +34,14 @@ const { width } = Dimensions.get('screen');
 export interface StackNavigationScreenProps<T extends keyof StackParamList> {
   navigation: StackNavigationProp<StackParamList, T>;
   route: RouteProp<StackParamList, T>;
+}
+
+export interface TabNavigationScreenProps<T extends keyof TabsParamList> {
+  navigation: CompositeNavigationProp<
+    BottomTabNavigationProp<TabsParamList, T>,
+    StackNavigationProp<StackParamList>
+  >;
+  route: RouteProp<TabsParamList, T>;
 }
 
 export type TabsParamList = {
