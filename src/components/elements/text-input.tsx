@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   TextInput,
   TextInputProps,
@@ -9,14 +9,11 @@ import {
   StyleProp,
   ViewStyle,
   Pressable,
-} from "react-native";
+} from 'react-native';
 
-import Animated from "react-native-reanimated";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import color from "../../styles/color";
-import size from "../../styles/size";
-import useCustomFont from "../../hooks/use-custom-font";
-import Text from "../elements/text";
+import color from '../../styles/color';
+import size from '../../styles/size';
+import useCustomFont from '../../hooks/use-custom-font';
 
 interface Props extends TextInputProps {
   value?: string;
@@ -51,7 +48,6 @@ function CustomTextInput(props: Props, ref: any) {
     rightIconComponent,
     rightIconOnPress,
     leftIconOnPress,
-    placeholderTextColor = color.placeholder,
     selectionColor = color.textInputSelection,
     multiline = false,
     editable = true,
@@ -73,7 +69,7 @@ function CustomTextInput(props: Props, ref: any) {
         onPress && onPress();
       }
     },
-    [ref, isFocused]
+    [ref, isFocused],
   );
 
   const currentIconColor = isFocused ? color.primary : color.black;
@@ -83,7 +79,7 @@ function CustomTextInput(props: Props, ref: any) {
       onFocus && onFocus(e);
       setIsFocused(true);
     },
-    [onFocus]
+    [onFocus],
   );
 
   const _handleOnBlur = React.useCallback(
@@ -91,7 +87,7 @@ function CustomTextInput(props: Props, ref: any) {
       onBlur && onBlur(e);
       setIsFocused(false);
     },
-    [onBlur]
+    [onBlur],
   );
 
   const currentBorderColor = React.useMemo(() => {
@@ -101,7 +97,7 @@ function CustomTextInput(props: Props, ref: any) {
   const containerStyle: any = {
     borderColor: currentBorderColor,
     borderWidth: 0.5,
-    borderRadius: 10,
+    // borderRadius: 10,
   };
 
   return (
@@ -112,13 +108,11 @@ function CustomTextInput(props: Props, ref: any) {
         multiline && styles.multilineContainer,
         isError && containerStyle,
         textInputContainerStyle,
-      ]}
-    >
+      ]}>
       {leftIconComponent && (
         <Pressable
           onPress={() => _handleOnPressView(leftIconOnPress)}
-          style={styles.leftIconContainer}
-        >
+          style={styles.leftIconContainer}>
           <View>{leftIconComponent(iconSize, currentIconColor)}</View>
         </Pressable>
       )}
@@ -139,8 +133,7 @@ function CustomTextInput(props: Props, ref: any) {
           style={styles.rightIconContainer}
           onPress={() => {
             rightIconOnPress && rightIconOnPress();
-          }}
-        >
+          }}>
           {rightIconComponent(iconSize, currentIconColor)}
         </Pressable>
       )}
@@ -154,8 +147,8 @@ export default React.forwardRef(CustomTextInput);
 
 const styles = StyleSheet.create({
   defaultStyle: {
-    height: "100%",
-    width: "100%",
+    height: '100%',
+    width: '100%',
     color: color.defaultText,
     paddingHorizontal: 16,
     flex: 1,
@@ -173,19 +166,19 @@ const styles = StyleSheet.create({
     letterSpacing: -2,
   },
   leftIconContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingLeft: 16,
-    height: "100%",
+    height: '100%',
   },
   rightIconContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingRight: 16,
-    height: "100%",
+    height: '100%',
   },
   animatedDefaultStyle: {
-    height: "100%",
+    height: '100%',
     borderColor: color.platinum,
     borderRadius: 10,
     color: color.defaultText,
@@ -197,20 +190,20 @@ const styles = StyleSheet.create({
     height: size.inputHeight,
     borderRadius: 6,
     backgroundColor: color.white,
-    position: "relative",
-    flexDirection: "row",
-    alignItems: "center",
+    position: 'relative',
+    flexDirection: 'row',
+    alignItems: 'center',
     borderColor: color.neutral,
     borderWidth: 1,
   },
   placeholderStyle: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     right: 0,
     bottom: 0,
     left: 0,
   },
   textAlignTop: {
-    textAlignVertical: "top",
+    textAlignVertical: 'top',
   },
 });
