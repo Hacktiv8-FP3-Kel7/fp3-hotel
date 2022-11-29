@@ -1,45 +1,146 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer, RouteProp} from '@react-navigation/native';
-import {
-  createStackNavigator,
-  StackNavigationProp,
-} from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer, NavigatorScreenParams, RouteProp } from '@react-navigation/native';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
 
-import {useCredential} from './common/containers/CredentialContainer';
-import HomeScreen, {
-  HOME_SCREEN_NAME,
-  HOME_SCREEN_PARAMS,
-} from './screens/home-screen';
-import LoginScreen, {
-  LOGIN_SCREEN_NAME,
-  LOGIN_SCREEN_PARAMS,
-} from './screens/login-screen';
-
+import { useCredential } from './common/containers/CredentialContainer';
+import HomeScreen, { HOME_SCREEN_NAME, HOME_SCREEN_PARAMS } from './screens/home-screen';
+import LoginScreen, { LOGIN_SCREEN_NAME, LOGIN_SCREEN_PARAMS } from './screens/login-screen';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import color from './styles/color';
+import Text from './components/elements/text';
+import FavoriteScreen, {
+  FAVORITE_SCREEN_NAME,
+  FAVORITE_SCREEN_PARAMS,
+} from './screens/favorite-screen';
+import ProfileScreen, {
+  PROFILE_SCREEN_NAME,
+  PROFILE_SCREEN_PARAMS,
+} from './screens/profile-screen';
+import SettingScreen, {
+  SETTINGS_SCREEN_NAME,
+  SETTINGS_SCREEN_PARAMS,
+} from './screens/settings-screen';
+import typography from './styles/typography';
 export interface StackNavigationScreenProps<T extends keyof StackParamList> {
   navigation: StackNavigationProp<StackParamList, T>;
   route: RouteProp<StackParamList, T>;
 }
 
-export type StackParamList = {
+export type TabsParamList = {
   [HOME_SCREEN_NAME]: HOME_SCREEN_PARAMS;
+  [FAVORITE_SCREEN_NAME]: FAVORITE_SCREEN_PARAMS;
+  [PROFILE_SCREEN_NAME]: PROFILE_SCREEN_PARAMS;
+  [SETTINGS_SCREEN_NAME]: SETTINGS_SCREEN_PARAMS;
+};
+export const BOTTOM_TABS_NAME = 'Bottom Tabs';
+
+export type StackParamList = {
+  [BOTTOM_TABS_NAME]: NavigatorScreenParams<TabsParamList>;
   [LOGIN_SCREEN_NAME]: LOGIN_SCREEN_PARAMS;
 };
-
-export type TabsParamList = {};
 
 const Tabs = createBottomTabNavigator<TabsParamList>();
 const Stack = createStackNavigator<StackParamList>();
 
+const Tab = () => {
+  return (
+    <Tabs.Navigator
+      backBehavior="firstRoute"
+      initialRouteName={HOME_SCREEN_NAME}
+      screenOptions={{
+        headerShown: false,
+        unmountOnBlur: true,
+        tabBarHideOnKeyboard: true,
+        tabBarShowLabel: true,
+        tabBarStyle: {
+          backgroundColor: color.white,
+          borderTopColor: color.primary,
+        },
+      }}
+    >
+      <Tabs.Screen
+        name={HOME_SCREEN_NAME}
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ focused }) =>
+            focused ? (
+              <FontAwesome name="home" size={24} color={color.black} />
+            ) : (
+              <FontAwesome name="home" size={24} color={color.blue} />
+            ),
+          tabBarLabel: ({ focused }) => (
+            <Text style={[typography.body, { color: focused ? color.black : color.blue }]}>
+              {'Home'}
+            </Text>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name={FAVORITE_SCREEN_NAME}
+        component={FavoriteScreen}
+        options={{
+          tabBarIcon: ({ focused }) =>
+            focused ? (
+              <MaterialIcons name="favorite" size={24} color={color.black} />
+            ) : (
+              <MaterialIcons name="favorite" size={24} color={color.blue} />
+            ),
+          tabBarLabel: ({ focused }) => (
+            <Text style={[typography.body, { color: focused ? color.black : color.blue }]}>
+              {'Favorite'}
+            </Text>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name={PROFILE_SCREEN_NAME}
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: ({ focused }) =>
+            focused ? (
+              <MaterialIcons name="person" size={24} color={color.black} />
+            ) : (
+              <MaterialIcons name="person" size={24} color={color.blue} />
+            ),
+          tabBarLabel: ({ focused }) => (
+            <Text style={[typography.body, { color: focused ? color.black : color.blue }]}>
+              {'Profile'}
+            </Text>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name={SETTINGS_SCREEN_NAME}
+        component={SettingScreen}
+        options={{
+          tabBarIcon: ({ focused }) =>
+            focused ? (
+              <MaterialIcons name="settings" size={24} color={color.black} />
+            ) : (
+              <MaterialIcons name="settings" size={24} color={color.blue} />
+            ),
+          tabBarLabel: ({ focused }) => (
+            <Text style={[typography.body, { color: focused ? color.black : color.blue }]}>
+              {'Settings'}
+            </Text>
+          ),
+        }}
+      />
+    </Tabs.Navigator>
+  );
+};
+
 export default function Router() {
-  const {credential} = useCredential();
+  const { credential } = useCredential();
   const isAuthenticated = !!credential;
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isAuthenticated ? (
           <>
-            <Stack.Screen name={HOME_SCREEN_NAME} component={HomeScreen} />
+            <Stack.Screen name={BOTTOM_TABS_NAME} component={Tab} />
           </>
         ) : (
           <>
