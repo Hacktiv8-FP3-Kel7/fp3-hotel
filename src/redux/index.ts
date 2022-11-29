@@ -1,5 +1,5 @@
-import { init, Models, RematchDispatch, RematchRootState } from "@rematch/core";
-import auth from "./auth";
+import { init, Models, RematchDispatch, RematchRootState } from '@rematch/core';
+import auth from './auth';
 
 export interface RootModel extends Models<RootModel> {
   auth: typeof auth;

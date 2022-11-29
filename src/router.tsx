@@ -42,6 +42,7 @@ export const BOTTOM_TABS_NAME = 'Bottom Tabs';
 export type StackParamList = {
   [BOTTOM_TABS_NAME]: NavigatorScreenParams<TabsParamList>;
   [LOGIN_SCREEN_NAME]: LOGIN_SCREEN_PARAMS;
+  [SETTINGS_SCREEN_NAME]: SETTINGS_SCREEN_PARAMS;
 };
 
 const Tabs = createBottomTabNavigator<TabsParamList>();
