@@ -1,6 +1,7 @@
 import Text from '@app/components/elements/text';
+import HomeScreenHeader from '@app/components/modules/home-screen/home-screen-header';
 import * as React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCredential } from '../common/containers/CredentialContainer';
 import { RematchDispatcher } from '../redux';
@@ -22,10 +23,13 @@ export default function HomeScreen(props: Props) {
   }, [dispatch.auth, setCredential]);
 
   return (
-    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-      <TouchableOpacity onPress={onClickLogout} style={{ backgroundColor: 'red', padding: 20 }}>
-        <Text>{'Logout'}</Text>
-      </TouchableOpacity>
-    </View>
+    <>
+      <HomeScreenHeader />
+      <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+        <TouchableOpacity onPress={onClickLogout} style={{ backgroundColor: 'red', padding: 20 }}>
+          <Text>{'Logout'}</Text>
+        </TouchableOpacity>
+      </View>
+    </>
   );
 }
