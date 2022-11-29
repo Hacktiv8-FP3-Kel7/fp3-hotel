@@ -1,7 +1,7 @@
-import { createModel } from "@rematch/core";
-import { produce } from "immer";
-import type { Dispatch, RootModel, RootState } from ".";
-import { User } from "../api-hooks/user/user.model";
+import { createModel } from '@rematch/core';
+import { produce } from 'immer';
+import type { Dispatch, RootModel, RootState } from '.';
+import { User } from '../api-hooks/user/user.model';
 
 export interface AuthState {
   data?: User;
@@ -12,7 +12,7 @@ const initialState: AuthState = {
 };
 
 const auth = createModel<RootModel>()({
-  name: "auth",
+  name: 'auth',
   state: initialState,
   reducers: {
     setUser(state: AuthState, payload: User): AuthState {
