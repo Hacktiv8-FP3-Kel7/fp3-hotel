@@ -1,24 +1,25 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   StyleProp,
   ViewStyle,
   TextInputProps,
   StyleSheet,
   View,
-} from "react-native";
+  // Text,
+} from 'react-native';
 
-import Icon from "react-native-vector-icons/FontAwesome";
-import { useFormContext, useController } from "react-hook-form";
-import Text from "../../elements/text";
-import typography from "../../../styles/typography";
-import InputGroup from "../../elements/input-group";
-import colors from "../../../styles/color";
-import size from "../../../styles/size";
-import TextInput from "../../elements/text-input";
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {useFormContext, useController} from 'react-hook-form';
+import Text from '../../elements/text';
+import typography from '../../../styles/typography';
+import InputGroup from '../../elements/input-group';
+import colors from '../../../styles/color';
+import size from '../../../styles/size';
+import TextInput from '../../elements/text-input';
 
 export interface CustomTextInputProps extends TextInputProps {
   name: string;
-  type: "normal" | "phone" | "password" | "numeric";
+  type: 'normal' | 'phone' | 'password' | 'numeric';
   label?: React.ReactNode;
   dialCode?: string;
   required?: boolean;
@@ -36,7 +37,7 @@ export interface CustomTextInputProps extends TextInputProps {
 export default function TextField(props: CustomTextInputProps) {
   const {
     type,
-    dialCode = "",
+    dialCode = '',
     name,
     required,
     onAfterChange,
@@ -46,8 +47,8 @@ export default function TextField(props: CustomTextInputProps) {
     ...restProps
   } = props;
 
-  const { control } = useFormContext();
-  const { field, fieldState } = useController({
+  const {control} = useFormContext();
+  const {field, fieldState} = useController({
     name,
     control,
   });
@@ -55,7 +56,7 @@ export default function TextField(props: CustomTextInputProps) {
   const [showText, setShowText] = React.useState<boolean>(false);
 
   const onToggle = React.useCallback(() => {
-    setShowText((prev) => !prev);
+    setShowText(prev => !prev);
   }, []);
 
   let content: React.ReactNode = null;
@@ -65,21 +66,21 @@ export default function TextField(props: CustomTextInputProps) {
       let newValue = value;
 
       switch (type) {
-        case "phone":
+        case 'phone':
           const prefix = dialCode;
-          let maskedText = value.replace(/(\D|^0)/g, "");
+          let maskedText = value.replace(/(\D|^0)/g, '');
           if (maskedText.length <= prefix.length) {
             maskedText = prefix;
           }
           if (!maskedText.startsWith(prefix)) {
             maskedText = prefix.concat(maskedText);
           }
-          newValue = `${prefix ? "+" : ""}${maskedText}`;
+          newValue = `${prefix ? '+' : ''}${maskedText}`;
           break;
-        case "numeric":
-          let output = value.replace(/[^0-9.]/g, "").split(".");
+        case 'numeric':
+          let output = value.replace(/[^0-9.]/g, '').split('.');
           const newText =
-            output.shift() + (output.length ? "." + output.join("") : "");
+            output.shift() + (output.length ? '.' + output.join('') : '');
           newValue = newText;
 
           break;
@@ -88,14 +89,14 @@ export default function TextField(props: CustomTextInputProps) {
       field.onChange(newValue);
       onAfterChange && onAfterChange();
     },
-    [dialCode, field, onAfterChange, type]
+    [dialCode, field, onAfterChange, type],
   );
 
   switch (type) {
-    case "normal":
+    case 'normal':
       const {
-        onChange: normalOnChange,
-        onBlur: normalOnBlur,
+        // onChange: normalOnChange,
+        // onBlur: normalOnBlur,
         ...normalRestFields
       } = field;
       content = (
@@ -107,10 +108,10 @@ export default function TextField(props: CustomTextInputProps) {
         />
       );
       break;
-    case "numeric":
+    case 'numeric':
       const {
-        onChange: numericOnChange,
-        onBlur: numericOnBlur,
+        // onChange: numericOnChange,
+        // onBlur: numericOnBlur,
         ...numericRestFields
       } = field;
       content = (
@@ -123,10 +124,10 @@ export default function TextField(props: CustomTextInputProps) {
         />
       );
       break;
-    case "phone":
+    case 'phone':
       const {
-        onChange: phoneOnChange,
-        onBlur: phoneOnBlur,
+        // onChange: phoneOnChange,
+        // onBlur: phoneOnBlur,
         ...phoneRestFields
       } = field;
       content = (
@@ -148,10 +149,10 @@ export default function TextField(props: CustomTextInputProps) {
         </View>
       );
       break;
-    case "password":
+    case 'password':
       const {
-        onChange: passwordOnChange,
-        onBlur: passwordOnBlur,
+        // onChange: passwordOnChange,
+        // onBlur: passwordOnBlur,
         ...passwordRestFields
       } = field;
       content = (
@@ -162,9 +163,9 @@ export default function TextField(props: CustomTextInputProps) {
             rightIconOnPress={onToggle}
             rightIconComponent={() => (
               <Icon
-                name={!showText ? "eye-slash" : "eye"}
+                name={!showText ? 'eye-slash' : 'eye'}
                 size={25}
-                color={colors.placeholder}
+                color={fieldState.error ? colors.error : colors.placeholder}
               />
             )}
             secureTextEntry={!showText}
@@ -178,17 +179,16 @@ export default function TextField(props: CustomTextInputProps) {
   }
 
   const renderLabel = (isError: boolean) => {
-    if (typeof label === "string") {
+    if (typeof label === 'string') {
       return (
         <View style={styles.mb6}>
           <Text
             style={[
               typography.body,
-              { color: isError ? colors.red : colors.label },
-            ]}
-          >
+              {color: isError ? colors.red : colors.label},
+            ]}>
             {label}
-            {required && <Text style={styles.requiredText}>{"    *"}</Text>}
+            {required && <Text style={styles.requiredText}>{'    *'}</Text>}
           </Text>
         </View>
       );
@@ -197,7 +197,7 @@ export default function TextField(props: CustomTextInputProps) {
     return (
       <View style={styles.mb6}>
         {label}
-        {required && <Text style={styles.requiredText}>{"    *"}</Text>}
+        {required && <Text style={styles.requiredText}>{'    *'}</Text>}
       </View>
     );
   };
@@ -205,8 +205,7 @@ export default function TextField(props: CustomTextInputProps) {
   return (
     <InputGroup
       error={!!fieldState.error}
-      style={[styles.inputGroup, containerStyle]}
-    >
+      style={[styles.inputGroup, containerStyle]}>
       {label && renderLabel(!!fieldState.error)}
       {content}
     </InputGroup>
@@ -221,14 +220,14 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   inputGroup: {
-    width: "100%",
+    width: '100%',
     marginBottom: 16,
   },
   label: {
     color: colors.label,
   },
   eyeIcon: {
-    position: "absolute",
+    position: 'absolute',
     top: 11,
     right: 10,
     zIndex: 1000,
@@ -237,15 +236,15 @@ const styles = StyleSheet.create({
   },
   phoneFieldContainer: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   prefixContainer: {
     backgroundColor: colors.placeholderBackground,
     borderRadius: 8,
     height: size.inputHeight,
     paddingHorizontal: 16,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginRight: 8,
   },
   phonePrefix: {
