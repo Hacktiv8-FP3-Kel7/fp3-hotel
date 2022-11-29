@@ -1,13 +1,13 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, NavigatorScreenParams, RouteProp } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
-import * as React from 'react';
-
 import { useCredential } from './common/containers/CredentialContainer';
 import HomeScreen, { HOME_SCREEN_NAME, HOME_SCREEN_PARAMS } from './screens/home-screen';
 import LoginScreen, { LOGIN_SCREEN_NAME, LOGIN_SCREEN_PARAMS } from './screens/login-screen';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import color from './styles/color';
 import Text from './components/elements/text';
 import FavoriteScreen, {
@@ -66,12 +66,12 @@ const Tab = () => {
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <FontAwesome name="home" size={24} color={color.black} />
+              <Ionicons name="home" size={24} color={color.blue} />
             ) : (
-              <FontAwesome name="home" size={24} color={color.blue} />
+              <Ionicons name="home-outline" size={24} color={color.black} />
             ),
           tabBarLabel: ({ focused }) => (
-            <Text style={[typography.body, { color: focused ? color.black : color.blue }]}>
+            <Text style={[typography.body, { color: focused ? color.blue : color.black }]}>
               {'Home'}
             </Text>
           ),
@@ -83,12 +83,12 @@ const Tab = () => {
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <MaterialIcons name="favorite" size={24} color={color.black} />
-            ) : (
               <MaterialIcons name="favorite" size={24} color={color.blue} />
+            ) : (
+              <MaterialIcons name="favorite-border" size={24} color={color.black} />
             ),
           tabBarLabel: ({ focused }) => (
-            <Text style={[typography.body, { color: focused ? color.black : color.blue }]}>
+            <Text style={[typography.body, { color: focused ? color.blue : color.black }]}>
               {'Favorite'}
             </Text>
           ),
@@ -100,12 +100,12 @@ const Tab = () => {
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <MaterialIcons name="person" size={24} color={color.black} />
+              <Ionicons name="person" size={24} color={color.blue} />
             ) : (
-              <MaterialIcons name="person" size={24} color={color.blue} />
+              <Ionicons name="person-outline" size={24} color={color.black} />
             ),
           tabBarLabel: ({ focused }) => (
-            <Text style={[typography.body, { color: focused ? color.black : color.blue }]}>
+            <Text style={[typography.body, { color: focused ? color.blue : color.black }]}>
               {'Profile'}
             </Text>
           ),
@@ -117,12 +117,12 @@ const Tab = () => {
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <MaterialIcons name="settings" size={24} color={color.black} />
+              <Ionicons name="settings" size={24} color={color.blue} />
             ) : (
-              <MaterialIcons name="settings" size={24} color={color.blue} />
+              <Ionicons name="settings-outline" size={24} color={color.black} />
             ),
           tabBarLabel: ({ focused }) => (
-            <Text style={[typography.body, { color: focused ? color.black : color.blue }]}>
+            <Text style={[typography.body, { color: focused ? color.blue : color.black }]}>
               {'Settings'}
             </Text>
           ),
