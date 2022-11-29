@@ -5,7 +5,6 @@ import colors from "../../styles/color";
 import size from "../../styles/size";
 
 export interface InputGroupProps extends ViewProps {
-  // label?: string;
   children: React.ReactNode;
   suffix?: React.ReactNode;
   error?: string | boolean | undefined;
