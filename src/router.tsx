@@ -23,6 +23,9 @@ import SettingScreen, {
   SETTINGS_SCREEN_PARAMS,
 } from './screens/settings-screen';
 import typography from './styles/typography';
+import { Dimensions, StyleSheet } from 'react-native';
+
+const { width } = Dimensions.get('screen');
 export interface StackNavigationScreenProps<T extends keyof StackParamList> {
   navigation: StackNavigationProp<StackParamList, T>;
   route: RouteProp<StackParamList, T>;
@@ -55,8 +58,7 @@ const Tab = () => {
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: true,
         tabBarStyle: {
-          backgroundColor: color.white,
-          borderTopColor: color.primary,
+          ...styles.tabStyle,
         },
       }}
     >
@@ -71,7 +73,12 @@ const Tab = () => {
               <Ionicons name="home-outline" size={24} color={color.black} />
             ),
           tabBarLabel: ({ focused }) => (
-            <Text style={[typography.body, { color: focused ? color.blue : color.black }]}>
+            <Text
+              style={[
+                typography.body,
+                { color: focused ? color.blue : color.black, paddingBottom: 6 },
+              ]}
+            >
               {'Home'}
             </Text>
           ),
@@ -88,7 +95,12 @@ const Tab = () => {
               <MaterialIcons name="favorite-border" size={24} color={color.black} />
             ),
           tabBarLabel: ({ focused }) => (
-            <Text style={[typography.body, { color: focused ? color.blue : color.black }]}>
+            <Text
+              style={[
+                typography.body,
+                { color: focused ? color.blue : color.black, paddingBottom: 6 },
+              ]}
+            >
               {'Favorite'}
             </Text>
           ),
@@ -105,7 +117,12 @@ const Tab = () => {
               <Ionicons name="person-outline" size={24} color={color.black} />
             ),
           tabBarLabel: ({ focused }) => (
-            <Text style={[typography.body, { color: focused ? color.blue : color.black }]}>
+            <Text
+              style={[
+                typography.body,
+                { color: focused ? color.blue : color.black, paddingBottom: 6 },
+              ]}
+            >
               {'Profile'}
             </Text>
           ),
@@ -122,7 +139,12 @@ const Tab = () => {
               <Ionicons name="settings-outline" size={24} color={color.black} />
             ),
           tabBarLabel: ({ focused }) => (
-            <Text style={[typography.body, { color: focused ? color.blue : color.black }]}>
+            <Text
+              style={[
+                typography.body,
+                { color: focused ? color.blue : color.black, paddingBottom: 6 },
+              ]}
+            >
               {'Settings'}
             </Text>
           ),
@@ -151,3 +173,24 @@ export default function Router() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  tabStyle: {
+    backgroundColor: color.white,
+    width: width - 40,
+    height: 65,
+    paddingTop: 4,
+    borderRadius: 16,
+    marginBottom: 30,
+    paddingBottom: 0,
+    elevation: 4,
+    alignSelf: 'center',
+    shadowColor: color.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+});
