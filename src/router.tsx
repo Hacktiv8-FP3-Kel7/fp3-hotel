@@ -52,6 +52,7 @@ const Tab = () => {
     <Tabs.Navigator
       backBehavior="firstRoute"
       initialRouteName={HOME_SCREEN_NAME}
+      sceneContainerStyle={{ backgroundColor: 'white' }}
       screenOptions={{
         headerShown: false,
         unmountOnBlur: true,
@@ -59,6 +60,7 @@ const Tab = () => {
         tabBarShowLabel: true,
         tabBarStyle: {
           ...styles.tabStyle,
+          position: 'absolute',
         },
       }}
     >
@@ -190,6 +192,8 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+    left: (width - 40) / 20,
+    right: 0,
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
