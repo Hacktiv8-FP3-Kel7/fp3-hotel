@@ -7,14 +7,6 @@ import {
   View,
 } from "react-native";
 
-// import Text from '@app/components/elements/text';
-// import TextInput from '@app/components/elements/text-input';
-// import InputGroup from '@app/components/elements/input-group';
-// import {useField} from 'formik';
-// import typography from '@app/common/constants/typography.constant';
-// import colorConstant from '@app/common/constants/color.constant';
-// import sizeConstant from '@app/common/constants/size.constant';
-// import {InputType} from '@app/components/elements/text-input';
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useFormContext, useController } from "react-hook-form";
 import Text from "../../elements/text";
@@ -46,8 +38,6 @@ export default function TextField(props: CustomTextInputProps) {
     type,
     dialCode = "",
     name,
-    // isShowingPassword,
-    // onPressShowPassword,
     required,
     onAfterChange,
     rightIconOnPress,
@@ -56,7 +46,6 @@ export default function TextField(props: CustomTextInputProps) {
     ...restProps
   } = props;
 
-  //   const [fields, meta, helpers] = useField(name);
   const { control } = useFormContext();
   const { field, fieldState } = useController({
     name,
@@ -112,7 +101,6 @@ export default function TextField(props: CustomTextInputProps) {
       content = (
         <TextInput
           isError={!!fieldState.error}
-          // requiredText={required}
           onChangeText={_onChange}
           {...normalRestFields}
           {...restProps}
@@ -189,11 +177,16 @@ export default function TextField(props: CustomTextInputProps) {
       break;
   }
 
-  const renderLabel = () => {
+  const renderLabel = (isError: boolean) => {
     if (typeof label === "string") {
       return (
         <View style={styles.mb6}>
-          <Text style={[typography.body, styles.label]}>
+          <Text
+            style={[
+              typography.body,
+              { color: isError ? colors.red : colors.label },
+            ]}
+          >
             {label}
             {required && <Text style={styles.requiredText}>{"    *"}</Text>}
           </Text>
@@ -214,7 +207,7 @@ export default function TextField(props: CustomTextInputProps) {
       error={!!fieldState.error}
       style={[styles.inputGroup, containerStyle]}
     >
-      {label && renderLabel()}
+      {label && renderLabel(!!fieldState.error)}
       {content}
     </InputGroup>
   );
@@ -228,7 +221,6 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   inputGroup: {
-    flex: 1,
     width: "100%",
     marginBottom: 16,
   },
@@ -251,7 +243,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.placeholderBackground,
     borderRadius: 8,
     height: size.inputHeight,
-    // height: '100%',
     paddingHorizontal: 16,
     alignItems: "center",
     justifyContent: "center",

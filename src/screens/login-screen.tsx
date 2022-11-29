@@ -14,6 +14,7 @@ import useYupValidationResolver from "../hooks/use-yup-validation-resolver";
 import { useForm, FormProvider } from "react-hook-form";
 import SubmitField from "../components/widgets/field-components/submit-field";
 import TextField from "../components/widgets/field-components/text-field";
+import InputGroup from "../components/elements/input-group";
 
 export const LOGIN_SCREEN_NAME = "Login Screen";
 export type LOGIN_SCREEN_PARAMS = undefined;
@@ -68,7 +69,9 @@ export default function LoginScreen(props: Props) {
 
   return (
     <FormProvider {...methods}>
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View
+        style={{ flex: 1, justifyContent: "center", paddingHorizontal: 24 }}
+      >
         <TextField
           name="username"
           type="normal"
@@ -83,7 +86,7 @@ export default function LoginScreen(props: Props) {
           placeholder="password"
           required
         />
-        <SubmitField onSubmit={onSubmit} />
+        <SubmitField text="Login" onSubmit={onSubmit} />
       </View>
     </FormProvider>
   );
