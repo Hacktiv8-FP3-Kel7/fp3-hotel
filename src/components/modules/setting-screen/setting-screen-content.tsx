@@ -74,7 +74,7 @@ export default function SettingContent(props: Props) {
     dispatch.auth.setUser({ ...user, [`${param.name}`]: param.value });
   };
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.mt12}>
       <View style={styles.cardContainer}>
         <Text style={styles.cardTitle}>My Account</Text>
         <ProfileInput
@@ -171,5 +171,8 @@ const styles = StyleSheet.create({
     color: colors.grey,
     fontSize: size.defaultText,
     textAlign: 'right',
+  },
+  mt12: {
+    marginTop: 12,
   },
 });
