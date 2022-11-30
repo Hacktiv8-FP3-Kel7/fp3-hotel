@@ -48,11 +48,11 @@ const auth = createModel<RootModel>()({
       };
     },
     addBooking(state: AuthState, payload: BookingModel): AuthState {
-      state.bookingData.push(payload);
       ToastHelper.success('Berhasil membuat booking');
-      return { ...state };
+      return { ...state, bookingData: state.bookingData.concat(payload) };
     },
     addFavorite(state: AuthState, payload: HotelModel): AuthState {
+      ToastHelper.success(`${payload.name} berhasil ditambahkan ke favorite`);
       return { ...state, favorite: state.favorite.concat(payload) };
     },
     removeFavorite(state: AuthState, payload: HotelModel): AuthState {
@@ -61,13 +61,39 @@ const auth = createModel<RootModel>()({
       if (foundFavorite > -1) {
         const newFavorite = [...state.favorite];
         newFavorite.splice(foundFavorite, 1);
+        ToastHelper.success(`${payload.name} berhasil dihapus dari favorite`);
+
         return {
           ...state,
           favorite: newFavorite,
         };
       }
 
+      ToastHelper.error(`${payload.name} gagal dihapus dari favorite`);
+
       return { ...state };
+    },
+    addHistory(state: AuthState, payload: SearchHistoryModel): AuthState {
+      return { ...state, searchHistories: state.searchHistories.concat(payload) };
+    },
+    clearHistory(state: AuthState, payload: SearchHistoryModel): AuthState {
+      const foundHistory = state.searchHistories.findIndex((history) => history.id === payload.id);
+
+      if (foundHistory > -1) {
+        const newHistories = [...state.searchHistories];
+        newHistories.splice(foundHistory, 1);
+        ToastHelper.success('History berhasil dihapus');
+
+        return { ...state, searchHistories: newHistories };
+      }
+
+      ToastHelper.error('History gagal dihapus');
+
+      return { ...state };
+    },
+    clearAllHistory(state: AuthState): AuthState {
+      ToastHelper.success('Semua History berhasil dihapus');
+      return { ...state, searchHistories: [] };
     },
     reset(): AuthState {
       return {
@@ -80,11 +106,13 @@ const auth = createModel<RootModel>()({
 const userSelector = (state: RootState) => state.auth?.data;
 const bookingSelector = (state: RootState) => state.auth.bookingData;
 const favoriteSelector = (state: RootState) => state.auth.favorite;
+const searchHistories = (state: RootState) => state.auth.searchHistories;
 
 export const authSelector = {
   userSelector,
   bookingSelector,
   favoriteSelector,
+  searchHistories,
 };
 
 export default auth;
