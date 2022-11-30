@@ -1,6 +1,6 @@
 import { MutationFetchFunction } from '@app/common/helpers/common';
 import { ExtendedApiResult } from '@app/common/repositories';
-import { apiKey, apiURL } from '@app/utils/api-info';
+import { API_KEY, API_URL } from '@env';
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 import { getHotels, HotelModel } from './hotel.model';
 
@@ -13,9 +13,9 @@ export default function useGetHotels(
     () =>
       MutationFetchFunction({
         method: 'GET',
-        url: apiURL,
+        url: API_URL,
         headers: {
-          'x-api-key': apiKey,
+          'x-api-key': API_KEY,
         },
         inputParams: { size: 1, ...input?.params },
       }),

@@ -52,6 +52,7 @@
     "@types/invariant": "^2.2.35",
     "@types/react": "~18.0.24",
     "@types/react-native": "~0.70.6",
+    "@types/react-native-dotenv": "^0.2.0",
     "eslint": "7.32.0",
     "eslint-config-prettier": "^8.5.0",
     "lint-staged": "^12.4.1",
