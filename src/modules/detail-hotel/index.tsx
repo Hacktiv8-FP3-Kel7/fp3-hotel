@@ -36,7 +36,7 @@ export default function DetailHotel(props: Props) {
       <Text>
         {data.address.city}, {data.address.country}
       </Text>
-      <Text>({data.starRating})</Text>
+      <Text>({data.starRating}) Rating</Text>
 
       <Text>Deskripsi</Text>
       <Text>{data.description.short}</Text>

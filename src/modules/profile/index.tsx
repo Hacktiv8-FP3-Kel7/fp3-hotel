@@ -19,7 +19,7 @@ export default function Profile() {
         <Text>{user?.firstName || 'No Name'}</Text>
         <Text>{search.length} Pencarian</Text>
         <Text>{favorities.length} Favorite</Text>
-        <Text>{bookings.length} Bookings</Text>
+        <Text>{bookings.length} Booking</Text>
       </View>
       <FlatList
         data={bookings}

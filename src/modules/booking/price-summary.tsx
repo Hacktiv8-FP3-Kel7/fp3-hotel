@@ -2,6 +2,7 @@ import { View } from 'react-native';
 import * as React from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import Text from '@app/components/elements/text';
+import { string2money } from '@app/common/utils/string';
 
 export default function PriceSummary() {
   const { control } = useFormContext();
@@ -15,8 +16,8 @@ export default function PriceSummary() {
       <Text>
         {days} Hari, {rooms} Kamar, {guests} Tamu
       </Text>
-      <Text>Rp {price}</Text>
-      <Text>Rp {price * rooms}</Text>
+      <Text>Rp {string2money(price)}</Text>
+      <Text>Rp {string2money(price * rooms)}</Text>
     </View>
   );
 }

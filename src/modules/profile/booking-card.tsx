@@ -25,7 +25,7 @@ export default function BookingCard(props: Props) {
       <Text>
         {guests} Tamu, {days} Hari, {rooms} Kamar
       </Text>
-      <Text>{totalPrice}</Text>
+      <Text>{string2money(totalPrice)}</Text>
     </View>
   );
 }
