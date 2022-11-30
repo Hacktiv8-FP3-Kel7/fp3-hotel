@@ -1,4 +1,5 @@
 import useGetHotels from '@app/api-hooks/hotel/hotel.query';
+import HomeScreenHeader from '@app/components/modules/home-screen/home-screen-header';
 import Home from '@app/modules/home';
 import * as React from 'react';
 import { FlatList, View } from 'react-native';
@@ -30,15 +31,18 @@ export default function HomeScreen(props: Props) {
   // hotels?.map((hotel) => console.log(hotel.name)); //error
 
   return (
-    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-      {/* <BookingForm /> */}
-      <FlatList
-        data={hotels || []}
-        renderItem={(item) => <></>}
-        keyExtractor={(item) => item.hotelId}
-      />
+    <>
+      <HomeScreenHeader />
+      <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+        {/* <BookingForm /> */}
+        <FlatList
+          data={hotels || []}
+          renderItem={(item) => <></>}
+          keyExtractor={(item) => item.hotelId}
+        />
 
-      <Home />
-    </View>
+        <Home />
+      </View>
+    </>
   );
 }
