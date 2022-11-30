@@ -31,6 +31,8 @@ export default function HotelCard(props: Props) {
     [dispatch.auth],
   );
 
+  console.log(data.amenities);
+
   const onRemoveFavorite = React.useCallback(
     (hotel: HotelModel) => {
       dispatch.auth.removeFavorite(hotel);
@@ -61,12 +63,12 @@ export default function HotelCard(props: Props) {
         </View>
         <View style={styles.facilitiesContainer}>
           <Text style={[bodyTypography.bodySemiBold5]}>Fasilitas</Text>
-          {/* {data.aminities.slice(0, 2).map((facility) => (
+          {data.amenities.slice(0, 2).map((facility) => (
             <Text style={[bodyTypography.bodySemiBold5]}>{facility.formatted}</Text>
-          ))} */}
-          {/* {data.aminities.length > 2 && (
-            <Text style={[bodyTypography.bodySemiBold5]}>{data.aminities.length - 2} More</Text>
-          )} */}
+          ))}
+          {data.amenities.length > 2 && (
+            <Text style={[bodyTypography.bodySemiBold5]}>{data.amenities.length - 2} More</Text>
+          )}
         </View>
       </View>
 
@@ -74,7 +76,7 @@ export default function HotelCard(props: Props) {
         style={styles.favoriteButton}
         underlayColor={colors.white}
         onPress={() => {
-          // isFavorite ? onRemoveFavorite(data) : onAddFavorite(data);
+          isFavorite ? onRemoveFavorite(data) : onAddFavorite(data);
           onAddFavorite(data);
         }}
       >
