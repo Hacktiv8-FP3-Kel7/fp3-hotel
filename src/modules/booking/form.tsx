@@ -1,12 +1,14 @@
 import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
 import ToastHelper from '@app/common/helpers/toast';
 import Input from '@app/components/elements';
-import SubmitField from '@app/components/elements/submit-field';
+import Header from '@app/components/widgets/header';
 import useYupValidationResolver from '@app/hooks/use-yup-validation-resolver';
 import * as React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
+import PriceSummary from './price-summary';
 
 interface Props {
   hotel: HotelModel;
@@ -16,11 +18,11 @@ export default function BookingForm(props: Props) {
   const dispatch = useDispatch();
   const defaultValues = React.useMemo(
     () => ({
-      name: '',
+      orderer: '',
       email: '',
       phoneNumber: '',
       days: 0,
-      room: 0,
+      rooms: 0,
       guests: 0,
       price: Math.floor(Math.random() * (1000000 - 200000) * 200000), //get random prices
       totalPrice: 0,
@@ -31,7 +33,7 @@ export default function BookingForm(props: Props) {
   const yupSchema = React.useMemo(
     () =>
       Yup.object().shape({
-        name: Yup.string().required(),
+        orderer: Yup.string().required(),
         email: Yup.string().email().required(),
         phoneNumber: Yup.string().required(),
         days: Yup.number().min(1).required(),
@@ -49,26 +51,36 @@ export default function BookingForm(props: Props) {
     mode: 'all',
   });
 
-  const onSubmit = React.useCallback(async (values: typeof defaultValues) => {
-    try {
-      values.totalPrice = values.price * values.room; //generate totalPrice
-      //   console.log(values);
-      dispatch.auth.addBooking({ ...values, ...hotel }); // add to booking
-      ToastHelper.success('Booking Hotel Berhasil');
-    } catch (e) {
-      ToastHelper.error('Error');
-    }
-  }, []);
+  const onSubmit = React.useCallback(
+    async (values: typeof defaultValues) => {
+      try {
+        values.totalPrice = values.price * values.rooms; //generate totalPrice
+
+        dispatch.auth.addBooking({ ...values, ...hotel }); // add to booking
+
+        ToastHelper.success('Booking Hotel Berhasil');
+      } catch (e) {
+        ToastHelper.error('Error');
+      }
+    },
+    [dispatch.auth, hotel],
+  );
 
   return (
-    <FormProvider {...methods}>
-      <Input type="normal" name="name" label="name" placeholder="name" required />
-      <Input type="normal" name="email" label="email" placeholder="email" required />
-      <Input type="phone" name="phoneNumber" label="phone" placeholder="phone" required />
-      <Input type="numeric" name="days" label="days" placeholder="days" required />
-      <Input type="numeric" name="rooms" label="rooms" placeholder="rooms" required />
-      <Input type="numeric" name="guests" label="guests" placeholder="guests" required />
-      <Input type="submit" text="Book Now" onSubmit={onSubmit} />
-    </FormProvider>
+    <View>
+      <Header title="Booking Screen" titleCenter back />
+      <View>
+        <FormProvider {...methods}>
+          <Input type="normal" name="orderer" label="name" placeholder="name" required />
+          <Input type="normal" name="email" label="email" placeholder="email" required />
+          <Input type="phone" name="phoneNumber" label="phone" placeholder="phone" required />
+          <Input type="numeric" name="days" label="days" placeholder="days" required />
+          <Input type="numeric" name="rooms" label="rooms" placeholder="rooms" required />
+          <Input type="numeric" name="guests" label="guests" placeholder="guests" required />
+          <Input type="submit" text="Book Now" onSubmit={onSubmit} />
+        </FormProvider>
+      </View>
+      <PriceSummary />
+    </View>
   );
 }

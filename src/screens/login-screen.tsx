@@ -23,7 +23,9 @@ export default function LoginScreen(props: Props) {
   const dispatch = useDispatch();
   const { setCredential } = useCredential();
   const { data, isLoading } = useGetUsers();
+
   const defaultValues = React.useMemo(() => ({ username: '', password: '' }), []);
+
   const yupSchema = React.useMemo(
     () =>
       Yup.object().shape({
@@ -32,6 +34,7 @@ export default function LoginScreen(props: Props) {
       }),
     [],
   );
+
   const resolver = useYupValidationResolver(yupSchema);
 
   const methods = useForm({
@@ -47,19 +50,24 @@ export default function LoginScreen(props: Props) {
           username: values.username,
           password: values.password,
         });
+
         const found = data?.data.find((curr) => curr.username === values.username);
+
         setCredential({
           token: res.data.token,
         });
+
         dispatch.auth.setUser({
           firstName: found?.name.firstname || '',
           lastName: found?.name.lastname || '',
           email: found?.email || '',
           gender: 'male',
         });
+
         ToastHelper.success('Berhasil Login');
       } catch (e: any) {
         console.log(e);
+
         ToastHelper.error('Error');
       }
     },

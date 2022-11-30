@@ -1,3 +1,4 @@
+import Profile from '@app/modules/profile';
 import * as React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
@@ -9,5 +10,5 @@ export type PROFILE_SCREEN_PARAMS = undefined;
 interface Props extends TabNavigationScreenProps<typeof PROFILE_SCREEN_NAME> {}
 
 export default function ProfileScreen(props: Props) {
-  return <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}></View>;
+  return <Profile />;
 }
