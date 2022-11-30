@@ -9,6 +9,9 @@ export interface PaginationMeta {
   prev: null;
 }
 
-export interface ExtendedApiResult<T> extends ApiResult<T> {
+export interface ExtendedApiResult<T> {
+  data: {
+    data: T;
+  };
   pagination: PaginationMeta;
 }

@@ -1,5 +1,6 @@
 import useGetHotels from '@app/api-hooks/hotel/hotel.query';
 import Home from '@app/modules/home';
+import HotelCard from '@app/modules/home/hotel-card';
 import * as React from 'react';
 import { FlatList, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +16,8 @@ interface Props extends TabNavigationScreenProps<typeof HOME_SCREEN_NAME> {}
 
 export default function HomeScreen(props: Props) {
   const user = useSelector(authSelector.userSelector);
+  const favorite = useSelector(authSelector.favoriteSelector);
+
   const dispatch = useDispatch<RematchDispatcher>();
   const { setCredential } = useCredential();
   const onClickLogout = React.useCallback(() => {
@@ -24,17 +27,14 @@ export default function HomeScreen(props: Props) {
 
   const { data } = useGetHotels();
 
-  const hotels = data?.data || [];
-  // console.log(hotels?.data);
-  // hotels?.data?.map((hotel) => console.log(hotel.name)); //worked
-  // hotels?.map((hotel) => console.log(hotel.name)); //error
+  const hotels = data?.data.data || [];
 
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
       {/* <BookingForm /> */}
       <FlatList
         data={hotels || []}
-        renderItem={(item) => <></>}
+        renderItem={({ item }) => <HotelCard data={item} />}
         keyExtractor={(item) => item.hotelId}
       />
 

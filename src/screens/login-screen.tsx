@@ -10,6 +10,7 @@ import useYupValidationResolver from '../hooks/use-yup-validation-resolver';
 import { useForm } from 'react-hook-form';
 import Form from '@app/components/elements/form';
 import Input from '@app/components/elements';
+import { RematchDispatcher } from 'redux';
 
 export const LOGIN_SCREEN_NAME = 'Login Screen';
 export type LOGIN_SCREEN_PARAMS = undefined;
@@ -19,7 +20,7 @@ interface Props extends StackNavigationScreenProps<typeof LOGIN_SCREEN_NAME> {}
 export default function LoginScreen(props: Props) {
   const { mutateAsync: login } = useLogin();
   const [isLoggingIn, setIsLoggingIn] = React.useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<RematchDispatcher>();
   const { setCredential } = useCredential();
   const defaultValues = React.useMemo(() => ({ username: '', password: '' }), []);
   const yupSchema = React.useMemo(

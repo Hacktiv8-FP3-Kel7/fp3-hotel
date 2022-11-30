@@ -7,6 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '@app/redux/auth';
+import { RematchDispatcher } from 'redux';
 
 interface Props {
   data: HotelModel;
@@ -16,7 +17,7 @@ export default function HotelCard(props: Props) {
   const { data } = props;
 
   const favorite = useSelector(authSelector.favoriteSelector);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<RematchDispatcher>();
 
   const isFavorite = React.useMemo(
     () => !!favorite.find((item) => item.hotelId === data.hotelId),
@@ -60,12 +61,12 @@ export default function HotelCard(props: Props) {
         </View>
         <View style={styles.facilitiesContainer}>
           <Text style={[bodyTypography.bodySemiBold5]}>Fasilitas</Text>
-          {data.aminities.slice(0, 2).map((facility) => (
+          {/* {data.aminities.slice(0, 2).map((facility) => (
             <Text style={[bodyTypography.bodySemiBold5]}>{facility.formatted}</Text>
-          ))}
-          {data.aminities.length > 2 && (
+          ))} */}
+          {/* {data.aminities.length > 2 && (
             <Text style={[bodyTypography.bodySemiBold5]}>{data.aminities.length - 2} More</Text>
-          )}
+          )} */}
         </View>
       </View>
 
@@ -73,7 +74,8 @@ export default function HotelCard(props: Props) {
         style={styles.favoriteButton}
         underlayColor={colors.white}
         onPress={() => {
-          isFavorite ? onRemoveFavorite(data) : onAddFavorite(data);
+          // isFavorite ? onRemoveFavorite(data) : onAddFavorite(data);
+          onAddFavorite(data);
         }}
       >
         <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={24} color={colors.error} />
