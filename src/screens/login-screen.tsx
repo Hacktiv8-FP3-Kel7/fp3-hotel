@@ -23,7 +23,7 @@ export default function LoginScreen(props: Props) {
   const dispatch = useDispatch();
   const { setCredential } = useCredential();
   const { data, isLoading } = useGetUsers();
-  const defaultValues = React.useMemo(() => ({ username: '', password: '$' }), []);
+  const defaultValues = React.useMemo(() => ({ username: '', password: '' }), []);
   const yupSchema = React.useMemo(
     () =>
       Yup.object().shape({
