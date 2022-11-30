@@ -39,8 +39,7 @@ export default function HomeScreen(props: Props) {
         keyExtractor={(item) => item.hotelId}
       />
 
-        <Home />
-      </View>
-    </>
+      <Home />
+    </View>
   );
 }
