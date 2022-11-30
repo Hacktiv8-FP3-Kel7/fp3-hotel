@@ -1,7 +1,7 @@
 import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
 import { createModel } from '@rematch/core';
 import { produce } from 'immer';
-import type { Dispatch, RootModel, RootState } from '.';
+import type { RootModel, RootState } from '.';
 import { User } from '../api-hooks/user/user.model';
 export interface BookingModel extends HotelModel {
   name: string;

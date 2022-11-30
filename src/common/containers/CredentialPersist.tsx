@@ -1,6 +1,6 @@
-import * as React from "react";
-import CredentialContainer from "./CredentialContainer";
-import * as SecureStore from "expo-secure-store";
+import * as React from 'react';
+import CredentialContainer from './CredentialContainer';
+import * as SecureStore from 'expo-secure-store';
 
 const InitialContainer = (props) => null;
 
@@ -28,7 +28,7 @@ export default function CredentialPersist(props: Props) {
 
   React.useEffect(() => {
     async function exec() {
-      const credential = await SecureStore.getItemAsync("credential");
+      const credential = await SecureStore.getItemAsync('credential');
       setPersistState({
         credential: credential ? JSON.parse(credential) : undefined,
         isLoading: false,

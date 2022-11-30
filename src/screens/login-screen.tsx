@@ -10,7 +10,8 @@ import useYupValidationResolver from '../hooks/use-yup-validation-resolver';
 import { useForm } from 'react-hook-form';
 import Form from '@app/components/elements/form';
 import Input from '@app/components/elements';
-import { RematchDispatcher } from 'redux';
+import { useGetUsers } from '@app/api-hooks/user/user.query';
+import Text from '@app/components/elements/text';
 
 export const LOGIN_SCREEN_NAME = 'Login Screen';
 export type LOGIN_SCREEN_PARAMS = undefined;
@@ -19,9 +20,9 @@ interface Props extends StackNavigationScreenProps<typeof LOGIN_SCREEN_NAME> {}
 
 export default function LoginScreen(props: Props) {
   const { mutateAsync: login } = useLogin();
-  const [isLoggingIn, setIsLoggingIn] = React.useState(false);
-  const dispatch = useDispatch<RematchDispatcher>();
+  const dispatch = useDispatch();
   const { setCredential } = useCredential();
+  const { data, isLoading } = useGetUsers();
   const defaultValues = React.useMemo(() => ({ username: '', password: '' }), []);
   const yupSchema = React.useMemo(
     () =>
@@ -46,30 +47,44 @@ export default function LoginScreen(props: Props) {
           username: values.username,
           password: values.password,
         });
+        const found = data?.data.find((curr) => curr.username === values.username);
         setCredential({
           token: res.data.token,
         });
         dispatch.auth.setUser({
-          firstName: values.username,
-          lastName: '',
-          email: '',
-          gender: '',
+          firstName: found?.name.firstname || '',
+          lastName: found?.name.lastname || '',
+          email: found?.email || '',
+          gender: 'male',
         });
         ToastHelper.success('Berhasil Login');
       } catch (e: any) {
+        console.log(e);
         ToastHelper.error('Error');
       }
     },
-    [dispatch.auth, login, setCredential],
+    [data, dispatch.auth, login, setCredential],
   );
 
   return (
     <Form methods={methods}>
       <View style={{ flex: 1, justifyContent: 'center', paddingHorizontal: 24 }}>
-        <Input name="username" type="normal" placeholder="username" label="username" required />
-        <Input name="password" type="password" label="password" placeholder="password" required />
+        {isLoading ? (
+          <Text>Loading...</Text>
+        ) : (
+          <>
+            <Input name="username" type="normal" placeholder="username" label="username" required />
+            <Input
+              name="password"
+              type="password"
+              label="password"
+              placeholder="password"
+              required
+            />
 
-        <Input type="submit" text="Login" onSubmit={onSubmit} />
+            <Input type="submit" text="Login" onSubmit={onSubmit} />
+          </>
+        )}
       </View>
     </Form>
   );

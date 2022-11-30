@@ -31,18 +31,6 @@ import typography from './styles/typography';
 import { Dimensions, StyleSheet } from 'react-native';
 
 const { width } = Dimensions.get('screen');
-export interface StackNavigationScreenProps<T extends keyof StackParamList> {
-  navigation: StackNavigationProp<StackParamList, T>;
-  route: RouteProp<StackParamList, T>;
-}
-
-export interface TabNavigationScreenProps<T extends keyof TabsParamList> {
-  navigation: CompositeNavigationProp<
-    BottomTabNavigationProp<TabsParamList, T>,
-    StackNavigationProp<StackParamList>
-  >;
-  route: RouteProp<TabsParamList, T>;
-}
 
 export type TabsParamList = {
   [HOME_SCREEN_NAME]: HOME_SCREEN_PARAMS;
@@ -56,6 +44,18 @@ export type StackParamList = {
   [BOTTOM_TABS_NAME]: NavigatorScreenParams<TabsParamList>;
   [LOGIN_SCREEN_NAME]: LOGIN_SCREEN_PARAMS;
 };
+export interface StackNavigationScreenProps<T extends keyof StackParamList> {
+  navigation: StackNavigationProp<StackParamList, T>;
+  route: RouteProp<StackParamList, T>;
+}
+
+export interface TabNavigationScreenProps<T extends keyof TabsParamList> {
+  navigation: CompositeNavigationProp<
+    BottomTabNavigationProp<TabsParamList, T>,
+    StackNavigationProp<StackParamList>
+  >;
+  route: RouteProp<TabsParamList, T>;
+}
 
 const Tabs = createBottomTabNavigator<TabsParamList>();
 const Stack = createStackNavigator<StackParamList>();

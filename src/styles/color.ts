@@ -12,6 +12,7 @@ const colors = {
   lightGreyBg: 'rgba(157, 166, 174, 0.4)',
 
   background: '#F7F7F8',
+  greyBg: '#F1F1F4',
   neutral: '#C9CBCF',
   label: '#8F9596',
   placeholder: '#C9CCCF',

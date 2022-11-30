@@ -1,4 +1,5 @@
 import useGetHotels from '@app/api-hooks/hotel/hotel.query';
+import HomeScreenHeader from '@app/components/modules/home-screen/home-screen-header';
 import Home from '@app/modules/home';
 import HotelCard from '@app/modules/home/hotel-card';
 import * as React from 'react';
@@ -38,7 +39,8 @@ export default function HomeScreen(props: Props) {
         keyExtractor={(item) => item.hotelId}
       />
 
-      <Home />
-    </View>
+        <Home />
+      </View>
+    </>
   );
 }
