@@ -7,14 +7,14 @@ import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from '@app/redux';
-import { StackNavigationScreenProps } from '@app/router';
+import { StackNavigationScreenProps, TabNavigationScreenProps } from '@app/router';
 import { authSelector } from '@app/redux/auth';
 import useCustomFont from '@app/hooks/use-custom-font';
 import { TextInputProps } from '@app/components/elements/text-field/text-input-default';
 import size from '@app/styles/size';
 import { SETTINGS_SCREEN_NAME } from '@app/screens/settings-screen';
 
-interface Props extends StackNavigationScreenProps<typeof SETTINGS_SCREEN_NAME> {}
+interface Props extends TabNavigationScreenProps<typeof SETTINGS_SCREEN_NAME> {}
 
 function Action(props: {
   onPress?: () => void;
@@ -61,7 +61,7 @@ function ProfileInput(
 
 const Divider = () => <View style={styles.divider} />;
 
-export default function (props: Props) {
+export default function SettingContent(props: Props) {
   const { setCredential } = useCredential();
   const user = useSelector(authSelector.userSelector);
   const dispatch = useDispatch<Dispatch>();
@@ -74,50 +74,48 @@ export default function (props: Props) {
     dispatch.auth.setUser({ ...user, [`${param.name}`]: param.value });
   };
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.container}>
-        <View style={styles.cardContainer}>
-          <Text style={styles.cardTitle}>My Account</Text>
-          <ProfileInput
-            text="First Name"
-            value={user?.firstName}
-            onBlur={(value) => onProfileChange({ value, name: 'firstName' })}
-          />
-          <Divider />
-          <ProfileInput
-            text="last Name"
-            value={user?.lastName}
-            onBlur={(value) => onProfileChange({ value, name: 'lastName' })}
-          />
-          <Divider />
-          <ProfileInput
-            text="Email"
-            value={user?.email}
-            onBlur={(value) => onProfileChange({ value, name: 'email' })}
-          />
-          <Divider />
-          <ProfileInput
-            text="Gender"
-            value={user?.gender}
-            onBlur={(value) => onProfileChange({ value, name: 'gender' })}
-          />
-          <Divider />
-          <Action text="Language" onPress={() => {}} />
-          <Divider />
-          <Action text="Search History" onPress={() => {}} />
-          <Divider />
-          <Action text="Report A Problem" onPress={() => {}} />
-        </View>
-        <View style={styles.separatorVertical} />
-        <View style={styles.cardContainer}>
-          <Text style={styles.cardTitle}>Support</Text>
-          <Action text="Term & Policy" onPress={() => {}} />
-          <Divider />
-          <Action buttonTextStyle={{ color: colors.red }} text="Log out" onPress={onClickLogout} />
-        </View>
-        <View style={styles.separatorVertical} />
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView style={styles.container}>
+      <View style={styles.cardContainer}>
+        <Text style={styles.cardTitle}>My Account</Text>
+        <ProfileInput
+          text="First Name"
+          value={user?.firstName}
+          onBlur={(value) => onProfileChange({ value, name: 'firstName' })}
+        />
+        <Divider />
+        <ProfileInput
+          text="last Name"
+          value={user?.lastName}
+          onBlur={(value) => onProfileChange({ value, name: 'lastName' })}
+        />
+        <Divider />
+        <ProfileInput
+          text="Email"
+          value={user?.email}
+          onBlur={(value) => onProfileChange({ value, name: 'email' })}
+        />
+        <Divider />
+        <ProfileInput
+          text="Gender"
+          value={user?.gender}
+          onBlur={(value) => onProfileChange({ value, name: 'gender' })}
+        />
+        <Divider />
+        <Action text="Language" onPress={() => {}} />
+        <Divider />
+        <Action text="Search History" onPress={() => {}} />
+        <Divider />
+        <Action text="Report A Problem" onPress={() => {}} />
+      </View>
+      <View style={styles.separatorVertical} />
+      <View style={styles.cardContainer}>
+        <Text style={styles.cardTitle}>Support</Text>
+        <Action text="Term & Policy" onPress={() => {}} />
+        <Divider />
+        <Action buttonTextStyle={{ color: colors.red }} text="Log out" onPress={onClickLogout} />
+      </View>
+      <View style={styles.separatorVertical} />
+    </ScrollView>
   );
 }
 
