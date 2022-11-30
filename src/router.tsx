@@ -30,6 +30,10 @@ import SettingScreen, {
 import typography from './styles/typography';
 import { Dimensions, StyleSheet } from 'react-native';
 import { DETAIL_HOTEL_NAME, DETAIL_HOTEL_PARAMS } from './screens/detail-hotel-screen';
+import TermsPolicyScreen, {
+  TERMS_POLICY_SCREEN_NAME,
+  TERMS_POLICY_SCREEN_PARAMS,
+} from './screens/terms-policy-screen';
 
 const { width } = Dimensions.get('screen');
 
@@ -45,6 +49,7 @@ export type StackParamList = {
   [BOTTOM_TABS_NAME]: NavigatorScreenParams<TabsParamList>;
   [LOGIN_SCREEN_NAME]: LOGIN_SCREEN_PARAMS;
   [DETAIL_HOTEL_NAME]: DETAIL_HOTEL_PARAMS;
+  [TERMS_POLICY_SCREEN_NAME]: TERMS_POLICY_SCREEN_PARAMS;
 };
 export interface StackNavigationScreenProps<T extends keyof StackParamList> {
   navigation: StackNavigationProp<StackParamList, T>;
@@ -176,10 +181,13 @@ export default function Router() {
   const isAuthenticated = !!credential;
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#fff' } }}
+      >
         {isAuthenticated ? (
           <>
             <Stack.Screen name={BOTTOM_TABS_NAME} component={Tab} />
+            <Stack.Screen name={TERMS_POLICY_SCREEN_NAME} component={TermsPolicyScreen} />
           </>
         ) : (
           <>

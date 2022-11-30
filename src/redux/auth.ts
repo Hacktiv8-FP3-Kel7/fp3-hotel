@@ -53,35 +53,20 @@ const auth = createModel<RootModel>()({
       return { ...state };
     },
     addFavorite(state: AuthState, payload: HotelModel): AuthState {
-      state.favorite.push(payload);
-      ToastHelper.success(`${payload.name} berhasil ditambahkan ke favorite`);
-      return { ...state };
+      return { ...state, favorite: state.favorite.concat(payload) };
     },
     removeFavorite(state: AuthState, payload: HotelModel): AuthState {
-      const foundFavorite = state.favorite.findIndex((hotel) => hotel.hotelId === payload.hotelId);
+      const foundFavorite = state.favorite?.findIndex((hotel) => hotel.hotelId === payload.hotelId);
+
       if (foundFavorite > -1) {
-        state.favorite.splice(foundFavorite, 1);
-        console.log(state.favorite);
-        ToastHelper.success('Favorite berhasil dihapus');
-      } else {
-        ToastHelper.error('Data tidak ditemukan');
+        const newFavorite = [...state.favorite];
+        newFavorite.splice(foundFavorite, 1);
+        return {
+          ...state,
+          favorite: newFavorite,
+        };
       }
 
-      return { ...state };
-    },
-    addHistory(state: AuthState, payload: SearchHistoryModel): AuthState {
-      console.log(payload);
-      state.searchHistories.push(payload);
-      return { ...state };
-    },
-    removeHistory(state: AuthState, payload: SearchHistoryModel): AuthState {
-      const foundHistory = state.searchHistories.findIndex((history) => history.id === payload.id);
-      if (foundHistory > -1) {
-        state.searchHistories.splice(foundHistory, 1);
-        ToastHelper.success('History berhasil dihapus');
-      } else {
-        ToastHelper.error('Data tidak ditemukan');
-      }
       return { ...state };
     },
     reset(): AuthState {

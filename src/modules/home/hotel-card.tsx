@@ -8,6 +8,7 @@ import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '@app/redux/auth';
 import { RematchDispatcher } from 'redux';
+import ToastHelper from '@app/common/helpers/toast';
 
 interface Props {
   data: HotelModel;
@@ -20,21 +21,21 @@ export default function HotelCard(props: Props) {
   const dispatch = useDispatch<RematchDispatcher>();
 
   const isFavorite = React.useMemo(
-    () => !!favorite.find((item) => item.hotelId === data.hotelId),
+    () => !!favorite?.find((item) => item.hotelId === data.hotelId),
     [data.hotelId, favorite],
   );
 
-  console.log(isFavorite, data.hotelId);
-
   const onAddFavorite = React.useCallback(
     (hotel: HotelModel) => {
+      ToastHelper.success('Add Favorite');
       dispatch.auth.addFavorite(hotel);
     },
     [dispatch.auth],
   );
 
   const onRemoveFavorite = React.useCallback(
-    (hotel: HotelModel) => {
+    async (hotel: HotelModel) => {
+      ToastHelper.success('Remove Favorite');
       dispatch.auth.removeFavorite(hotel);
     },
     [dispatch.auth],
@@ -70,8 +71,8 @@ export default function HotelCard(props: Props) {
           {data.amenities.length === 0 && (
             <Text style={[bodyTypography.bodySemiBold5]}>Tidak ada fasilitas</Text>
           )}
-          {data.amenities.slice(0, 2).map((facility, index) => (
-            <Text key={index} style={[bodyTypography.bodySemiBold5]}>
+          {data.amenities.slice(0, 2).map((facility, idx) => (
+            <Text style={[bodyTypography.bodySemiBold5]} key={idx}>
               {facility.formatted}
             </Text>
           ))}
