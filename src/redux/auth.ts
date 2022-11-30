@@ -20,6 +20,7 @@ export interface SearchHistoryModel {
   start: string;
   end: string;
   starRating: number;
+  createdAt: Date;
 }
 
 export interface AuthState {

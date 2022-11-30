@@ -55,6 +55,7 @@ export default function BookingForm(props: Props) {
           starRating: values.starRating.gte,
           end: values.end,
           start: values.start,
+          createdAt: new Date(),
         });
 
         ToastHelper.success('Pencarian Hotel Berhasil');

@@ -21,7 +21,7 @@ export default function Home(props: Props) {
 
   return (
     <View style={styles.homeContainer}>
-      <HomeScreenHeader title="Halaman Beranda" />
+      <HomeScreenHeader />
       <BookingForm onSubmit={(input) => setParams({ params: input })} />
       {isLoading || isFetching ? (
         <View style={styles.activityIndicatorContainer}>

@@ -1,6 +1,7 @@
 import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
 import ToastHelper from '@app/common/helpers/toast';
 import Input from '@app/components/elements';
+import Header from '@app/components/widgets/header';
 import useYupValidationResolver from '@app/hooks/use-yup-validation-resolver';
 import * as React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -67,6 +68,7 @@ export default function BookingForm(props: Props) {
 
   return (
     <View>
+      <Header title="Booking Screen" titleCenter back />
       <View>
         <FormProvider {...methods}>
           <Input type="normal" name="orderer" label="name" placeholder="name" required />
