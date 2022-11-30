@@ -1,6 +1,6 @@
 import { createModel } from '@rematch/core';
 import { produce } from 'immer';
-import type { Dispatch, RootModel, RootState } from '.';
+import type { RootModel, RootState } from '.';
 import { User } from '../api-hooks/user/user.model';
 
 export interface AuthState {

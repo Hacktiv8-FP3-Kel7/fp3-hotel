@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios from 'axios';
 
-type MutationMethodType = "GET" | "POST";
+type MutationMethodType = 'GET' | 'POST';
 export function MutationFetchFunction(
   url: string,
   method: MutationMethodType,
-  body?: any
+  body?: any,
 ): Promise<any> {
   return new Promise(async (resolve, reject) => {
     try {
@@ -13,10 +13,10 @@ export function MutationFetchFunction(
           method: method,
           url: url,
           data: body,
-        })
+        }),
       );
     } catch (e: any) {
-      reject("Error");
+      reject('Error');
     }
   });
 }
