@@ -2,10 +2,11 @@ import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
 import Text from '@app/components/elements/text';
 import HomeScreenHeader from '@app/components/modules/home-screen/home-screen-header';
 import * as React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, Image, StyleSheet, TouchableHighlight, View } from 'react-native';
 
 interface Props {
   data: HotelModel;
+  onClick: (hotel: HotelModel) => void;
 }
 
 function FacilityItem(props: { facilityName: string }) {
@@ -18,10 +19,18 @@ function FacilityItem(props: { facilityName: string }) {
 }
 
 export default function DetailHotel(props: Props) {
-  const { data } = props;
+  const { data, onClick } = props;
   return (
-    <View>
+    <View style={styles.detailContainer}>
       <HomeScreenHeader title="Detail Hotel" back />
+      <Image
+        style={styles.imageContainer}
+        source={{
+          uri:
+            data.images.find((image) => image.isHeroImage)?.url ??
+            'https://tempe.wajokab.go.id/img/no-image.png',
+        }}
+      />
       <Text>{data.name}</Text>
       <Text>
         {data.address.city}, {data.address.country}
@@ -38,10 +47,19 @@ export default function DetailHotel(props: Props) {
         horizontal
         showsHorizontalScrollIndicator={false}
       />
+      <TouchableHighlight onPress={() => onClick(data)} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  detailContainer: {
+    flex: 1,
+  },
   heroContainer: {},
+  imageContainer: {
+    width: '100%',
+    height: 300,
+    resizeMode: 'cover',
+  },
 });

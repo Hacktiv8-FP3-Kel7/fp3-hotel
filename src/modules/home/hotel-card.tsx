@@ -12,10 +12,11 @@ import ToastHelper from '@app/common/helpers/toast';
 
 interface Props {
   data: HotelModel;
+  onClick: () => void;
 }
 
 export default function HotelCard(props: Props) {
-  const { data } = props;
+  const { data, onClick } = props;
 
   const favorite = useSelector(authSelector.favoriteSelector);
   const dispatch = useDispatch<RematchDispatcher>();
@@ -42,7 +43,7 @@ export default function HotelCard(props: Props) {
   );
 
   return (
-    <TouchableOpacity style={[styles.card, styles.elevation]}>
+    <TouchableOpacity onPress={onClick} style={[styles.card, styles.elevation]}>
       <Image
         style={styles.imageHero}
         source={{

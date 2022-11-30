@@ -1,12 +1,11 @@
 import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
 import ToastHelper from '@app/common/helpers/toast';
 import { createModel } from '@rematch/core';
-import { produce } from 'immer';
 import type { RootModel, RootState } from '.';
 import { User } from '../api-hooks/user/user.model';
 
 export interface BookingModel extends HotelModel {
-  name: string;
+  orderer: string;
   email: string;
   phoneNumber: string;
   days: number;
@@ -52,7 +51,7 @@ const auth = createModel<RootModel>()({
       return { ...state, bookingData: state.bookingData.concat(payload) };
     },
     addFavorite(state: AuthState, payload: HotelModel): AuthState {
-      ToastHelper.success(`${payload.name} berhasil ditambahkan ke favorite`);
+      ToastHelper.success('Berhasil ditambahkan ke favorite');
       return { ...state, favorite: state.favorite.concat(payload) };
     },
     removeFavorite(state: AuthState, payload: HotelModel): AuthState {
@@ -61,7 +60,7 @@ const auth = createModel<RootModel>()({
       if (foundFavorite > -1) {
         const newFavorite = [...state.favorite];
         newFavorite.splice(foundFavorite, 1);
-        ToastHelper.success(`${payload.name} berhasil dihapus dari favorite`);
+        ToastHelper.success('Berhasil dihapus dari favorite');
 
         return {
           ...state,
@@ -69,7 +68,7 @@ const auth = createModel<RootModel>()({
         };
       }
 
-      ToastHelper.error(`${payload.name} gagal dihapus dari favorite`);
+      ToastHelper.error('Gagal dihapus dari favorite');
 
       return { ...state };
     },

@@ -34,6 +34,7 @@ import TermsPolicyScreen, {
   TERMS_POLICY_SCREEN_NAME,
   TERMS_POLICY_SCREEN_PARAMS,
 } from './screens/terms-policy-screen';
+import { BOOKING_HOTEL_NAME, BOOKING_HOTEL_PARAMS } from './screens/booking-hotel-screen';
 
 const { width } = Dimensions.get('screen');
 
@@ -50,6 +51,7 @@ export type StackParamList = {
   [LOGIN_SCREEN_NAME]: LOGIN_SCREEN_PARAMS;
   [DETAIL_HOTEL_NAME]: DETAIL_HOTEL_PARAMS;
   [TERMS_POLICY_SCREEN_NAME]: TERMS_POLICY_SCREEN_PARAMS;
+  [BOOKING_HOTEL_NAME]: BOOKING_HOTEL_PARAMS;
 };
 export interface StackNavigationScreenProps<T extends keyof StackParamList> {
   navigation: StackNavigationProp<StackParamList, T>;
