@@ -60,6 +60,7 @@ const colors = {
   close: '#374151',
 
   divider1: 'rgba(157, 166, 174, 0.4)',
+  yellowStar: '#FFFF00',
 };
 
 export default colors;
