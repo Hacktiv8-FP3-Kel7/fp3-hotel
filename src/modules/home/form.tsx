@@ -1,12 +1,16 @@
-import useGetHotels from '@app/api-hooks/hotel/hotel.query';
+import { getHotels } from '@app/api-hooks/hotel/hotel.model';
 import ToastHelper from '@app/common/helpers/toast';
 import Input from '@app/components/elements';
 import useYupValidationResolver from '@app/hooks/use-yup-validation-resolver';
 import * as React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
-export default function BookingForm() {
+interface Props {
+  onSubmit: (input: getHotels) => void;
+}
+export default function BookingForm(props: Props) {
   const defaultValues = React.useMemo(
     () => ({
       name: { like: '' },
@@ -36,10 +40,9 @@ export default function BookingForm() {
     mode: 'all',
   });
 
-  const onSubmit = React.useCallback(async (values: typeof defaultValues) => {
+  const onSubmit = React.useCallback(async (values) => {
     try {
-      //   const {} = useGetHotels({ params: values });
-      console.log(values);
+      props.onSubmit(values);
       ToastHelper.success('Pencarian Hotel Berhasil');
     } catch (e) {
       ToastHelper.error('Error');
@@ -48,11 +51,32 @@ export default function BookingForm() {
 
   return (
     <FormProvider {...methods}>
-      <Input type="normal" name="name.like" label="Hotel" placeholder="Cari hotel" required />
-      <Input type="normal" name="start" label="Check-In" placeholder="YYYY-MM-DD" required />
-      <Input type="normal" name="end" label="Check-Out" placeholder="YYYY-MM-DD" required />
-      <Input type="numeric" name="starRating.gte" label="Rating" placeholder="Rating" required />
-      <Input type="submit" onSubmit={onSubmit} />
+      <View style={styles.formContainer}>
+        <Input type="normal" name="name.like" label="Hotel" placeholder="Cari hotel" required />
+        <View style={styles.fullContainer}>
+          <View style={[styles.halfContainer, { marginRight: 5 }]}>
+            <Input type="normal" name="start" label="Check-In" placeholder="YYYY-MM-DD" required />
+          </View>
+          <View style={styles.halfContainer}>
+            <Input type="normal" name="end" label="Check-Out" placeholder="YYYY-MM-DD" required />
+          </View>
+        </View>
+        <Input type="numeric" name="starRating.gte" label="Rating" placeholder="Rating" required />
+        <Input type="submit" onSubmit={onSubmit} />
+      </View>
     </FormProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  formContainer: {
+    paddingHorizontal: 16,
+  },
+  fullContainer: {
+    width: '100%',
+    flexDirection: 'row',
+  },
+  halfContainer: {
+    flex: 1,
+  },
+});

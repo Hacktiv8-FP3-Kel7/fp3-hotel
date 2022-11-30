@@ -11,7 +11,7 @@ export class HotelModel {
   }[];
   name: string;
   starRating: number;
-  aminities: { code: number; formatted: string }[]; //facilities
+  amenities: { code: number; formatted: string }[]; //facilities
   roomCount: number;
 }
 

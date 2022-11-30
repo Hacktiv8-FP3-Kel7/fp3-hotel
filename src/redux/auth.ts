@@ -44,6 +44,7 @@ const auth = createModel<RootModel>()({
       return { ...state };
     },
     removeFavorite(state: AuthState, payload: HotelModel): AuthState {
+      console.log(state.favorite);
       const foundFavorite =
         state.favorite?.findIndex((hotel) => hotel.hotelId === payload.hotelId) || -1;
       if (foundFavorite > -1) {

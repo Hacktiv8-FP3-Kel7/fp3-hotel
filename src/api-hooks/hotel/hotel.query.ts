@@ -8,6 +8,7 @@ export default function useGetHotels(
   input?: getHotels,
   options?: UseQueryOptions<ExtendedApiResult<HotelModel[]>, 'Error'>,
 ): UseQueryResult<ExtendedApiResult<HotelModel[]>, 'Error'> {
+  console.log(input?.params, 'hotel query');
   return useQuery<ExtendedApiResult<HotelModel[]>, 'Error'>(
     ['get-hotels', input?.params],
     () =>
