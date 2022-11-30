@@ -1,4 +1,4 @@
-import { Image, StyleSheet, TouchableHighlight, View } from 'react-native';
+import { Image, StyleSheet, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import * as React from 'react';
 import Text from '@app/components/elements/text';
 import { bodyTypography, headlineTypography } from '@app/styles/typography';
@@ -24,14 +24,14 @@ export default function HotelCard(props: Props) {
     [data.hotelId, favorite],
   );
 
+  console.log(isFavorite);
+
   const onAddFavorite = React.useCallback(
     (hotel: HotelModel) => {
       dispatch.auth.addFavorite(hotel);
     },
     [dispatch.auth],
   );
-
-  console.log(data.amenities);
 
   const onRemoveFavorite = React.useCallback(
     (hotel: HotelModel) => {
@@ -41,7 +41,7 @@ export default function HotelCard(props: Props) {
   );
 
   return (
-    <View style={[styles.card, styles.elevation]}>
+    <TouchableOpacity style={[styles.card, styles.elevation]}>
       <Image
         style={styles.imageHero}
         source={{
@@ -51,8 +51,10 @@ export default function HotelCard(props: Props) {
         }}
       />
       <View style={styles.informationContainer}>
-        <View>
-          <Text style={[headlineTypography.semiBold6]}>{data.name}</Text>
+        <View style={styles.detailContainer}>
+          <Text style={[headlineTypography.semiBold6]} numberOfLines={1}>
+            {data.name}
+          </Text>
           <Text style={[bodyTypography.bodySemiBold4]}>
             {data.address.city} - {data.address.country}
           </Text>
@@ -63,6 +65,9 @@ export default function HotelCard(props: Props) {
         </View>
         <View style={styles.facilitiesContainer}>
           <Text style={[bodyTypography.bodySemiBold5]}>Fasilitas</Text>
+          {data.amenities.length === 0 && (
+            <Text style={[bodyTypography.bodySemiBold5]}>Tidak ada fasilitas</Text>
+          )}
           {data.amenities.slice(0, 2).map((facility) => (
             <Text style={[bodyTypography.bodySemiBold5]}>{facility.formatted}</Text>
           ))}
@@ -77,26 +82,32 @@ export default function HotelCard(props: Props) {
         underlayColor={colors.white}
         onPress={() => {
           isFavorite ? onRemoveFavorite(data) : onAddFavorite(data);
-          onAddFavorite(data);
         }}
       >
         <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={24} color={colors.error} />
       </TouchableHighlight>
-    </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
-    borderRadius: 8,
-    width: '100%',
+    flex: 1,
     height: 300,
     position: 'relative',
+    marginVertical: 16,
   },
   elevation: {
     elevation: 10,
-    shadowColor: colors.placeholder,
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    right: 0,
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   imageHero: {
     width: '100%',
@@ -119,11 +130,18 @@ const styles = StyleSheet.create({
   },
   informationContainer: {
     flexDirection: 'row',
-    width: '100%',
+    flex: 1,
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    marginVertical: 4,
+    marginHorizontal: 8,
   },
   facilitiesContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
     alignItems: 'flex-end',
+  },
+  detailContainer: {
+    flex: 1,
   },
 });
