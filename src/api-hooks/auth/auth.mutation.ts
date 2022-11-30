@@ -7,6 +7,10 @@ export function useLogin(
   options?: UseMutationOptions<ApiResult<TokenResult>, 'Error', LoginInput>,
 ) {
   return useMutation<ApiResult<TokenResult>, 'Error', LoginInput>(async function (body) {
-    return await MutationFetchFunction('https://fakestoreapi.com/auth/login', 'POST', body);
+    return await MutationFetchFunction({
+      url: 'https://fakestoreapi.com/auth/login',
+      method: 'POST',
+      body,
+    });
   }, options);
 }

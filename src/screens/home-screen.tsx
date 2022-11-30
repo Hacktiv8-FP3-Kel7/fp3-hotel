@@ -1,6 +1,7 @@
-import Text from '@app/components/elements/text';
+import useGetHotels from '@app/api-hooks/hotel/hotel.query';
+import Home from '@app/modules/home';
 import * as React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCredential } from '../common/containers/CredentialContainer';
 import { RematchDispatcher } from '../redux';
@@ -21,11 +22,23 @@ export default function HomeScreen(props: Props) {
     setCredential(undefined);
   }, [dispatch.auth, setCredential]);
 
+  const { data } = useGetHotels();
+
+  const hotels = data?.data || [];
+  // console.log(hotels?.data);
+  // hotels?.data?.map((hotel) => console.log(hotel.name)); //worked
+  // hotels?.map((hotel) => console.log(hotel.name)); //error
+
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-      <TouchableOpacity onPress={onClickLogout} style={{ backgroundColor: 'red', padding: 20 }}>
-        <Text>{'Logout'}</Text>
-      </TouchableOpacity>
+      {/* <BookingForm /> */}
+      <FlatList
+        data={hotels || []}
+        renderItem={(item) => <></>}
+        keyExtractor={(item) => item.hotelId}
+      />
+
+      <Home />
     </View>
   );
 }

@@ -25,7 +25,7 @@ interface FormProps {
 }
 
 export const FormContext = React.createContext<FormStateProps>({
-  editable: false,
+  editable: true,
   setIsEditable: () => {},
 });
 
