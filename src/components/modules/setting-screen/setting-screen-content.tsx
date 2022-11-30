@@ -13,6 +13,7 @@ import useCustomFont from '@app/hooks/use-custom-font';
 import { TextInputProps } from '@app/components/elements/text-field/text-input-default';
 import size from '@app/styles/size';
 import { SETTINGS_SCREEN_NAME } from '@app/screens/settings-screen';
+import { TERMS_POLICY_SCREEN_NAME } from '@app/screens/terms-policy-screen';
 
 interface Props extends TabNavigationScreenProps<typeof SETTINGS_SCREEN_NAME> {}
 
@@ -73,6 +74,14 @@ export default function SettingContent(props: Props) {
   const onProfileChange = (param: { value: string; name: string }) => {
     dispatch.auth.setUser({ ...user, [`${param.name}`]: param.value });
   };
+
+  const onClickTerms = React.useCallback(() => {
+    props.navigation.navigate({
+      name: TERMS_POLICY_SCREEN_NAME,
+      params: undefined,
+    });
+  }, [props.navigation]);
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.mt12}>
       <View style={styles.cardContainer}>
@@ -110,7 +119,7 @@ export default function SettingContent(props: Props) {
       <View style={styles.separatorVertical} />
       <View style={styles.cardContainer}>
         <Text style={styles.cardTitle}>Support</Text>
-        <Action text="Term & Policy" onPress={() => {}} />
+        <Action text="Term & Policy" onPress={onClickTerms} />
         <Divider />
         <Action buttonTextStyle={{ color: colors.red }} text="Log out" onPress={onClickLogout} />
       </View>

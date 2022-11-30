@@ -80,12 +80,12 @@ export default function Header(props: Props) {
       return leftComponent;
     } else {
       return back ? (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={close}>
           <AntDesign name="arrowleft" size={24} color={colors.blue} />
         </TouchableOpacity>
       ) : null;
     }
-  }, [back, leftComponent]);
+  }, [back, close, leftComponent]);
 
   const renderRight = React.useCallback(
     () => (rightComponent ? rightComponent : null),
