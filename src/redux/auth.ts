@@ -40,16 +40,20 @@ const auth = createModel<RootModel>()({
       return { ...state };
     },
     addFavorite(state: AuthState, payload: HotelModel): AuthState {
-      state.favorite.push(payload);
-      return { ...state };
+      return { ...state, favorite: state.favorite.concat(payload) };
     },
     removeFavorite(state: AuthState, payload: HotelModel): AuthState {
-      console.log(state.favorite);
-      const foundFavorite =
-        state.favorite?.findIndex((hotel) => hotel.hotelId === payload.hotelId) || -1;
+      const foundFavorite = state.favorite?.findIndex((hotel) => hotel.hotelId === payload.hotelId);
+
       if (foundFavorite > -1) {
-        state.favorite.splice(foundFavorite, 1);
+        const newFavorite = [...state.favorite];
+        newFavorite.splice(foundFavorite, 1);
+        return {
+          ...state,
+          favorite: newFavorite,
+        };
       }
+
       return { ...state };
     },
     reset(): AuthState {
