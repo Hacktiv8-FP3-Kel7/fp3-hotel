@@ -29,6 +29,7 @@ import SettingScreen, {
 } from './screens/settings-screen';
 import typography from './styles/typography';
 import { Dimensions, StyleSheet } from 'react-native';
+import { DETAIL_HOTEL_NAME, DETAIL_HOTEL_PARAMS } from './screens/detail-hotel-screen';
 
 const { width } = Dimensions.get('screen');
 
@@ -43,6 +44,7 @@ export const BOTTOM_TABS_NAME = 'Bottom Tabs';
 export type StackParamList = {
   [BOTTOM_TABS_NAME]: NavigatorScreenParams<TabsParamList>;
   [LOGIN_SCREEN_NAME]: LOGIN_SCREEN_PARAMS;
+  [DETAIL_HOTEL_NAME]: DETAIL_HOTEL_PARAMS;
 };
 export interface StackNavigationScreenProps<T extends keyof StackParamList> {
   navigation: StackNavigationProp<StackParamList, T>;
@@ -205,7 +207,6 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    left: (width - 40) / 20,
     right: 0,
     shadowOpacity: 0.1,
     shadowRadius: 4,

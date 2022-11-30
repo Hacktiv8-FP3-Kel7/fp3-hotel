@@ -5,12 +5,16 @@ import useYupValidationResolver from '@app/hooks/use-yup-validation-resolver';
 import * as React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { RematchDispatcher } from 'redux';
 import * as Yup from 'yup';
 
 interface Props {
   onSubmit: (input: getHotels) => void;
 }
 export default function BookingForm(props: Props) {
+  const dispatch = useDispatch<RematchDispatcher>();
+
   const defaultValues = React.useMemo(
     () => ({
       name: { like: '' },
@@ -40,14 +44,26 @@ export default function BookingForm(props: Props) {
     mode: 'all',
   });
 
-  const onSubmit = React.useCallback(async (values) => {
-    try {
-      props.onSubmit(values);
-      ToastHelper.success('Pencarian Hotel Berhasil');
-    } catch (e) {
-      ToastHelper.error('Error');
-    }
-  }, []);
+  const onSubmit = React.useCallback(
+    async (values) => {
+      try {
+        props.onSubmit(values);
+
+        dispatch.auth.addHistory({
+          id: +new Date(),
+          name: values.name.like,
+          starRating: values.starRating.gte,
+          end: values.end,
+          start: values.start,
+        });
+
+        ToastHelper.success('Pencarian Hotel Berhasil');
+      } catch (e) {
+        ToastHelper.error('Error');
+      }
+    },
+    [dispatch.auth, props],
+  );
 
   return (
     <FormProvider {...methods}>

@@ -24,7 +24,7 @@ export default function HotelCard(props: Props) {
     [data.hotelId, favorite],
   );
 
-  console.log(isFavorite);
+  console.log(isFavorite, data.hotelId);
 
   const onAddFavorite = React.useCallback(
     (hotel: HotelModel) => {
@@ -59,8 +59,10 @@ export default function HotelCard(props: Props) {
             {data.address.city} - {data.address.country}
           </Text>
           <View style={styles.ratingContainer}>
-            <Text style={[bodyTypography.bodyRegular4, { marginRight: 5 }]}>{data.starRating}</Text>
             <Ionicons name="star" size={24} color={colors.yellowStar} />
+            <Text style={[bodyTypography.bodyRegular4, { marginLeft: 5 }]}>
+              ({data.starRating})
+            </Text>
           </View>
         </View>
         <View style={styles.facilitiesContainer}>
@@ -68,8 +70,10 @@ export default function HotelCard(props: Props) {
           {data.amenities.length === 0 && (
             <Text style={[bodyTypography.bodySemiBold5]}>Tidak ada fasilitas</Text>
           )}
-          {data.amenities.slice(0, 2).map((facility) => (
-            <Text style={[bodyTypography.bodySemiBold5]}>{facility.formatted}</Text>
+          {data.amenities.slice(0, 2).map((facility, index) => (
+            <Text key={index} style={[bodyTypography.bodySemiBold5]}>
+              {facility.formatted}
+            </Text>
           ))}
           {data.amenities.length > 2 && (
             <Text style={[bodyTypography.bodySemiBold5]}>{data.amenities.length - 2} More</Text>

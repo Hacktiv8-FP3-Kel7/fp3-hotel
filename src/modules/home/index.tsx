@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <View style={styles.homeContainer}>
-      <HomeScreenHeader />
+      <HomeScreenHeader title="Halaman Beranda" />
       <BookingForm onSubmit={(input) => setParams({ params: input })} />
       {isLoading || isFetching ? (
         <View style={styles.activityIndicatorContainer}>
