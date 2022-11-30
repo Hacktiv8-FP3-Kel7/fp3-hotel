@@ -1,7 +1,7 @@
-import invariant from "invariant";
-import * as SecureStore from "expo-secure-store";
-import * as React from "react";
-import { TokenResult } from "../../api-hooks/auth/auth.model";
+import invariant from 'invariant';
+import * as SecureStore from 'expo-secure-store';
+import * as React from 'react';
+import { TokenResult } from '../../api-hooks/auth/auth.model';
 
 export interface CredentialStateProps {
   credential?: TokenResult;
@@ -19,9 +19,9 @@ interface Props {
 }
 
 export default function Credential(props: Props) {
-  const [userCredential, setUserCredential] = React.useState<
-    TokenResult | undefined
-  >(props.userCredential);
+  const [userCredential, setUserCredential] = React.useState<TokenResult | undefined>(
+    props.userCredential,
+  );
 
   const { children } = props;
 
@@ -30,31 +30,24 @@ export default function Credential(props: Props) {
       credential: userCredential,
       setCredential: async (credential) => {
         if (!credential) {
-          await SecureStore.deleteItemAsync("credential");
+          await SecureStore.deleteItemAsync('credential');
           setUserCredential(undefined);
         } else {
-          SecureStore.setItemAsync("credential", JSON.stringify(credential));
+          SecureStore.setItemAsync('credential', JSON.stringify(credential));
           setUserCredential(credential);
         }
       },
     }),
-    [userCredential]
+    [userCredential],
   );
 
-  return (
-    <CredentialContext.Provider value={value}>
-      {children}
-    </CredentialContext.Provider>
-  );
+  return <CredentialContext.Provider value={value}>{children}</CredentialContext.Provider>;
 }
 
 export function useCredential() {
   const context = React.useContext(CredentialContext);
 
-  invariant(
-    context !== undefined,
-    "useCredential must be used inside Credential Container"
-  );
+  invariant(context !== undefined, 'useCredential must be used inside Credential Container');
 
   return context;
 }

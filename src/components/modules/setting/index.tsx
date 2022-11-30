@@ -68,7 +68,7 @@ export default function (props: Props) {
   const onClickLogout = React.useCallback(() => {
     dispatch.auth.reset();
     setCredential(undefined);
-  }, [setCredential]);
+  }, [dispatch.auth, setCredential]);
 
   const onProfileChange = (param: { value: string; name: string }) => {
     dispatch.auth.setUser({ ...user, [`${param.name}`]: param.value });
