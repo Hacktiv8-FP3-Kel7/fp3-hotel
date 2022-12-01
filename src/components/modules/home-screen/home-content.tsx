@@ -13,7 +13,7 @@ export default function HomeContent(props: Props) {
   const { onClick } = props;
   const [params, setParams] = React.useState<any>(undefined);
 
-  const { data, isLoading, isFetching, refetch } = useGetHotels({ params });
+  const { data, isLoading, isFetching, refetch } = useGetHotels({ params: params });
 
   const hotels = React.useMemo(() => {
     return data?.data.data || [];

@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
-import qs from 'qs';
+import * as qs from 'qs';
 
 type MutationMethodType = 'GET' | 'POST';
 export function MutationFetchFunction({
@@ -17,21 +17,23 @@ export function MutationFetchFunction({
 }): Promise<any> {
   return new Promise(async (resolve, reject) => {
     try {
-      let params = '';
-      if (params) {
-        params = qs.stringify(inputParams);
+      let newParams = '';
+      if (inputParams?.params) {
+        newParams = qs.stringify(inputParams?.params);
+        if (method === 'GET') {
+          url += `&${newParams}`;
+        }
       }
       resolve(
         await axios({
           method: method,
           url: url,
-          params,
           data: body,
           headers,
         }),
       );
     } catch (e: any) {
-      reject('Error');
+      reject(e);
     }
   });
 }

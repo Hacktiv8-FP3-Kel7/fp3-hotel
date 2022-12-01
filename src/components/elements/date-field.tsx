@@ -42,6 +42,18 @@ export interface DateFieldProps extends TextProps {
   dateFormat?: string;
 }
 
+function formatDate(date) {
+  var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
 function DateField(props: DateFieldProps, ref: any) {
   const {
     name,
@@ -106,7 +118,7 @@ function DateField(props: DateFieldProps, ref: any) {
     const currentDate = selectedDate;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
-    field.onChange(currentDate);
+    field.onChange(formatDate(currentDate));
   };
 
   return (
@@ -133,7 +145,7 @@ function DateField(props: DateFieldProps, ref: any) {
           </Pressable>
         )}
         {field.value ? (
-          <Text style={{ paddingHorizontal: 16 }}>{format(field.value, dateFormat)}</Text>
+          <Text style={{ paddingHorizontal: 16 }}>{format(date, dateFormat)}</Text>
         ) : (
           <Text style={[{ color: isError ? color.red : color.placeholder, paddingHorizontal: 16 }]}>
             {placeholder}
