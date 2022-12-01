@@ -3,9 +3,9 @@ import useGetHotels from '@app/api-hooks/hotel/hotel.query';
 import HomeScreenHeader from '@app/components/modules/home-screen/home-screen-header';
 import colors from '@app/styles/color';
 import * as React from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
-import HomeAccordionForm from './home-accordion-form';
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import HomeHotelCard from './home-hotel-card';
+import HomeAccordionForm from './home-accordion-form';
 interface Props {
   onClick: (hotel: HotelModel) => void;
 }
@@ -19,7 +19,7 @@ export default function HomeContent(props: Props) {
     setShow((prev) => !prev);
   }, []);
 
-  const { data, isLoading, isFetching } = useGetHotels({ params });
+  const { data, isLoading, isFetching, refetch } = useGetHotels({ params: params });
 
   const hotels = React.useMemo(() => {
     return data?.data.data || [];
@@ -38,11 +38,13 @@ export default function HomeContent(props: Props) {
           <ActivityIndicator color={colors.black} />
         </View>
       ) : !show ? (
-        <View style={{ marginTop: 16, marginBottom: 180 }}>
+        <View style={{ marginHorizontal: 16 }}>
+          <View style={{ marginTop: 12 }} />
           <FlatList
             showsVerticalScrollIndicator={false}
             data={hotels}
-            contentContainerStyle={{ padding: 16 }}
+            refreshControl={<RefreshControl refreshing={isFetching} onRefresh={refetch} />}
+            contentContainerStyle={{ paddingBottom: 120 }}
             renderItem={({ item }) => <HomeHotelCard data={item} onClick={() => onClick(item)} />}
             keyExtractor={(item) => item.hotelId}
           />

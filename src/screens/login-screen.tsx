@@ -66,8 +66,6 @@ export default function LoginScreen(props: Props) {
 
         ToastHelper.success('Berhasil Login');
       } catch (e: any) {
-        console.log(e);
-
         ToastHelper.error('Error');
       }
     },

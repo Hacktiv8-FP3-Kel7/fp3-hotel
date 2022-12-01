@@ -17,7 +17,7 @@ export default function useGetHotels(
         headers: {
           'x-api-key': API_KEY,
         },
-        inputParams: { size: 5, ...input?.params },
+        inputParams: { ...input?.params },
       }),
     options,
   );

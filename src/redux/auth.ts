@@ -75,7 +75,7 @@ const auth = createModel<RootModel>()({
       return { ...state };
     },
     addHistory(state: AuthState, payload: SearchHistoryModel): AuthState {
-      return { ...state, searchHistories: state.searchHistories.concat(payload) };
+      return { ...state, searchHistories: state?.searchHistories?.concat(payload) };
     },
     clearHistory(state: AuthState, payload: SearchHistoryModel): AuthState {
       const foundHistory = state.searchHistories.findIndex((history) => history.id === payload.id);

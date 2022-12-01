@@ -68,7 +68,7 @@ export default function BookingContent(props: Props) {
         ToastHelper.error('Error');
       }
     },
-    [dispatch.auth, hotel],
+    [dispatch.auth, goBack, hotel],
   );
 
   return (

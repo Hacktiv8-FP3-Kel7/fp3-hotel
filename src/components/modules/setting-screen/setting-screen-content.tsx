@@ -13,6 +13,7 @@ import { TextInputProps } from '@app/components/elements/text-field/text-input-d
 import size from '@app/styles/size';
 import { SETTINGS_SCREEN_NAME } from '@app/screens/settings-screen';
 import { TERMS_POLICY_SCREEN_NAME } from '@app/screens/terms-policy-screen';
+import { SEARCH_HISTORY_SCREEN_NAME } from '@app/screens/search-history-screen';
 
 interface Props extends TabNavigationScreenProps<typeof SETTINGS_SCREEN_NAME> {}
 
@@ -81,6 +82,13 @@ export default function SettingContent(props: Props) {
     });
   }, [props.navigation]);
 
+  const onClickSearch = React.useCallback(() => {
+    props.navigation.navigate({
+      name: SEARCH_HISTORY_SCREEN_NAME,
+      params: undefined,
+    });
+  }, [props.navigation]);
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.mt12}>
       <View style={styles.cardContainer}>
@@ -111,7 +119,7 @@ export default function SettingContent(props: Props) {
         <Divider />
         <Action text="Language" onPress={() => {}} />
         <Divider />
-        <Action text="Search History" onPress={() => {}} />
+        <Action text="Search History" onPress={onClickSearch} />
         <Divider />
         <Action text="Report A Problem" onPress={() => {}} />
       </View>

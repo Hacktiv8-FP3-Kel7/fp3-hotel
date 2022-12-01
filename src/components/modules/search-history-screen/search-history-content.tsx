@@ -18,6 +18,7 @@ export default function SearchHistoryContent() {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={histories}
+          contentContainerStyle={{ padding: 16 }}
           renderItem={({ item }) => <SearchHistoryCard history={item} />}
           keyExtractor={(item) => item.id.toString()}
         />

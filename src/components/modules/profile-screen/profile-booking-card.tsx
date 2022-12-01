@@ -5,6 +5,8 @@ import * as React from 'react';
 import { string2money } from '@app/common/utils/string';
 import { format } from 'date-fns';
 import { bodyTypography } from '@app/styles/typography';
+import { useNavigation } from '@react-navigation/native';
+import { BOOKING_HOTEL_NAME } from '@app/screens/booking-hotel-screen';
 
 interface Props {
   booking: BookingModel;
@@ -12,24 +14,7 @@ interface Props {
 
 export default function BookingCard(props: Props) {
   const { booking } = props;
-  const {
-    name,
-    orderer,
-    guests,
-    days,
-    rooms,
-    email,
-    phoneNumber,
-    totalPrice,
-    images,
-    transactionAt,
-  } = booking;
-
-  // console.log(transactionAt);
-
-  const mainImage =
-    images.find((image) => image.isHeroImage)?.url ??
-    'https://tempe.wajokab.go.id/img/no-image.png';
+  const { name, orderer, guests, days, rooms, email, phoneNumber, totalPrice } = booking;
 
   return (
     <TouchableOpacity
@@ -51,9 +36,6 @@ export default function BookingCard(props: Props) {
       }}
       onPress={() => {}}
     >
-      <Text style={[bodyTypography.bodyRegular4, { marginVertical: 2 }]}>
-        Waktu Transaksi : {format(transactionAt || new Date(), 'dd-MM-yyyy, HH:mm')}
-      </Text>
       <Text numberOfLines={1} style={[bodyTypography.bodyRegular4, { marginVertical: 2 }]}>
         Nama Hotel : {name}
       </Text>

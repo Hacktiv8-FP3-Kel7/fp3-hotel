@@ -16,7 +16,7 @@ function FacilityItem(props: { facilityName: string }) {
   return (
     <View
       style={{
-        padding: 4,
+        padding: 8,
         marginHorizontal: 8,
         shadowColor: '#000',
         shadowOffset: {
@@ -26,7 +26,8 @@ function FacilityItem(props: { facilityName: string }) {
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
 
-        elevation: 10,
+        elevation: 5,
+        borderRadius: 8,
         backgroundColor: 'white',
       }}
     >
@@ -63,7 +64,7 @@ export default function DetailContent(props: Props) {
             <FlatList
               data={data.amenities}
               contentContainerStyle={{
-                padding: 8,
+                padding: 16,
               }}
               renderItem={({ item }) => (
                 <FacilityItem facilityName={item.formatted} key={item.code} />

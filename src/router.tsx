@@ -41,7 +41,7 @@ import BookingHotelScreen, {
   BOOKING_HOTEL_NAME,
   BOOKING_HOTEL_PARAMS,
 } from './screens/booking-hotel-screen';
-import {
+import SeachHistoryScreen, {
   SEARCH_HISTORY_SCREEN_NAME,
   SEARCH_HISTORY_SCREEN_PARAMS,
 } from './screens/search-history-screen';
@@ -203,6 +203,7 @@ export default function Router() {
             <Stack.Screen name={TERMS_POLICY_SCREEN_NAME} component={TermsPolicyScreen} />
             <Stack.Screen name={DETAIL_HOTEL_NAME} component={DetailHotelScreen} />
             <Stack.Screen name={BOOKING_HOTEL_NAME} component={BookingHotelScreen} />
+            <Stack.Screen name={SEARCH_HISTORY_SCREEN_NAME} component={SeachHistoryScreen} />
           </>
         ) : (
           <>
