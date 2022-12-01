@@ -18,7 +18,7 @@ export function MutationFetchFunction({
   return new Promise(async (resolve, reject) => {
     try {
       let params = '';
-      if (params) {
+      if (inputParams) {
         params = qs.stringify(inputParams);
       }
       resolve(

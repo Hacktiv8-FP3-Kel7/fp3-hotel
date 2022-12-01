@@ -12,7 +12,7 @@ import * as Yup from 'yup';
 interface Props {
   onSubmit: (input: getHotels) => void;
 }
-export default function BookingForm(props: Props) {
+export default function HomeSearchForm(props: Props) {
   const dispatch = useDispatch<RematchDispatcher>();
 
   const defaultValues = React.useMemo(
@@ -88,6 +88,7 @@ export default function BookingForm(props: Props) {
 const styles = StyleSheet.create({
   formContainer: {
     paddingHorizontal: 16,
+    paddingBottom: 24,
   },
   fullContainer: {
     width: '100%',

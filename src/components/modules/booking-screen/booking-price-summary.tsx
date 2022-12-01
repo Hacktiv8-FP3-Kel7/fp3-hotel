@@ -12,12 +12,27 @@ export default function BookingPriceSummary() {
   });
 
   return (
-    <View>
+    <View
+      style={{
+        backgroundColor: 'white',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 2,
+          height: 1,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.41,
+        margin: 16,
+        padding: 16,
+        borderRadius: 8,
+        elevation: 5,
+      }}
+    >
       <Text>
         {days} Hari, {rooms} Kamar, {guests} Tamu
       </Text>
-      <Text>Rp {string2money(price)}</Text>
-      <Text>Rp {string2money(price * rooms)}</Text>
+      <Text>Harga Kamar : Rp {string2money(price)} / Kamar</Text>
+      <Text>Total Harga : Rp {string2money(price * rooms)}</Text>
     </View>
   );
 }

@@ -16,13 +16,14 @@ export default function FavoriteContent(props: Props) {
   const favorities = useSelector(authSelector.favoriteSelector);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, marginHorizontal: 16, alignItems: 'center' }}>
       <Header title="Favorite Screen" titleCenter />
       {favorities.length === 0 ? (
         <Text>Belum ada favorite</Text>
       ) : (
         <FlatList
           data={favorities}
+          style={{ flex: 1, width: '100%' }}
           renderItem={({ item }) => <HomeHotelCard data={item} onClick={() => onClick(item)} />}
           keyExtractor={(item) => item.hotelId}
         />

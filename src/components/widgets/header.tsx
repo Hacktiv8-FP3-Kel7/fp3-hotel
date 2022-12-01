@@ -2,7 +2,6 @@ import typography from '@app/styles/typography';
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import {
-  Dimensions,
   StatusBar,
   StyleProp,
   StyleSheet,
@@ -11,7 +10,6 @@ import {
   TouchableOpacity,
   View,
   ViewStyle,
-  SafeAreaView,
   Platform,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -31,8 +29,6 @@ interface Props {
 }
 
 export const HEADER_HEIGHT = 60;
-
-const { width: screenWidth } = Dimensions.get('window');
 
 export default function Header(props: Props) {
   const navigation = useNavigation();

@@ -12,6 +12,7 @@ export interface BookingModel extends HotelModel {
   rooms: number;
   guests: number;
   totalPrice: number;
+  transactionAt: Date;
 }
 
 export interface SearchHistoryModel {

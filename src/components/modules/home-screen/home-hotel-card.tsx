@@ -61,24 +61,22 @@ export default function HomeHotelCard(props: Props) {
             {data.address.city} - {data.address.country}
           </Text>
           <View style={styles.ratingContainer}>
-            <Ionicons name="star" size={24} color={colors.yellowStar} />
-            <Text style={[bodyTypography.bodyRegular4, { marginLeft: 5 }]}>
-              ({data.starRating})
-            </Text>
+            <Ionicons name="star" size={24} color={colors.grey} />
+            <Text style={[bodyTypography.bodyRegular4, { marginLeft: 5 }]}>{data.starRating}</Text>
           </View>
         </View>
         <View style={styles.facilitiesContainer}>
-          <Text style={[bodyTypography.bodySemiBold5]}>Fasilitas</Text>
+          <Text style={[bodyTypography.bodySemiBold4]}>Fasilitas</Text>
           {data.amenities.length === 0 && (
-            <Text style={[bodyTypography.bodySemiBold5]}>Tidak ada fasilitas</Text>
+            <Text style={[bodyTypography.bodyRegular5]}>Tidak ada fasilitas</Text>
           )}
           {data.amenities.slice(0, 2).map((facility, idx) => (
-            <Text style={[bodyTypography.bodySemiBold5]} key={idx}>
+            <Text style={[bodyTypography.bodyRegular5]} key={idx}>
               {facility.formatted}
             </Text>
           ))}
           {data.amenities.length > 2 && (
-            <Text style={[bodyTypography.bodySemiBold5]}>{data.amenities.length - 2} More</Text>
+            <Text style={[bodyTypography.bodyRegular5]}>{data.amenities.length - 2} More</Text>
           )}
         </View>
       </View>
@@ -103,22 +101,25 @@ const styles = StyleSheet.create({
     height: 300,
     position: 'relative',
     marginVertical: 16,
+    borderRadius: 24,
   },
   elevation: {
-    elevation: 10,
-    shadowColor: colors.black,
+    elevation: 5,
+
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    right: 0,
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   imageHero: {
     width: '100%',
     height: '70%',
     resizeMode: 'cover',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   ratingContainer: {
     // backgroundColor: 'black',
@@ -139,8 +140,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginVertical: 4,
-    marginHorizontal: 8,
+    marginVertical: 2,
+    marginHorizontal: 16,
+    marginTop: 8,
   },
   facilitiesContainer: {
     flex: 1,
