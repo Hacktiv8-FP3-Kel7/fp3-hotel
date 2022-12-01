@@ -9,7 +9,7 @@ import HotelCard from './home-hotel-card';
 interface Props {
   onClick: (hotel: HotelModel) => void;
 }
-export default function Home(props: Props) {
+export default function HomeContent(props: Props) {
   const { onClick } = props;
   const [params, setParams] = React.useState<any>(undefined);
 

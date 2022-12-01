@@ -12,7 +12,7 @@ const persistPlugin = createPersistPlugin({
 
 export const store = init({
   models,
-  plugins: [persistPlugin],
+  plugins: [persistPlugin as any],
 });
 
 export type Store = typeof store;

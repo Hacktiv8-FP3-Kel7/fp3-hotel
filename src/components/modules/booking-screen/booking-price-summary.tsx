@@ -4,7 +4,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import Text from '@app/components/elements/text';
 import { string2money } from '@app/common/utils/string';
 
-export default function PriceSummary() {
+export default function BookingPriceSummary() {
   const { control } = useFormContext();
   const [days, rooms, guests, price] = useWatch({
     control,

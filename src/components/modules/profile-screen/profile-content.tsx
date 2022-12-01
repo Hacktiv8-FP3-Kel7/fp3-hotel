@@ -6,7 +6,7 @@ import Text from '@app/components/elements/text';
 import BookingCard from './profile-booking-card';
 import Header from '@app/components/widgets/header';
 
-export default function Profile() {
+export default function ProfileContent() {
   const user = useSelector(authSelector.userSelector);
   const favorities = useSelector(authSelector.favoriteSelector);
   const bookings = useSelector(authSelector.bookingSelector);
@@ -21,11 +21,15 @@ export default function Profile() {
         <Text>{favorities.length} Favorite</Text>
         <Text>{bookings.length} Booking</Text>
       </View>
-      <FlatList
-        data={bookings}
-        renderItem={({ item }) => <BookingCard booking={item} />}
-        keyExtractor={(item) => item.hotelId}
-      />
+      {bookings.length === 0 ? (
+        <Text>Tidak ada history booking</Text>
+      ) : (
+        <FlatList
+          data={bookings}
+          renderItem={({ item }) => <BookingCard booking={item} />}
+          keyExtractor={(item) => item.hotelId}
+        />
+      )}
     </View>
   );
 }

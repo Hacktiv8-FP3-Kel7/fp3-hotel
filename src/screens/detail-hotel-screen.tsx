@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StackNavigationScreenProps } from '@app/router';
 import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
 import { BOOKING_HOTEL_NAME } from './booking-hotel-screen';
-import DetailHotel from '@app/modules/detail-hotel';
+import DetailContent from '@app/components/modules/detail-hotel-screen/detail-content';
 export const DETAIL_HOTEL_NAME = 'Detail Screen';
 
 export type DETAIL_HOTEL_PARAMS = {
@@ -24,5 +24,5 @@ export default function DetailHotelScreen(props: Props) {
     [props.navigation],
   );
 
-  return <DetailHotel data={data} onClick={(hotel) => onClick(hotel)} />;
+  return <DetailContent data={data} onClick={(hotel) => onClick(hotel)} />;
 }

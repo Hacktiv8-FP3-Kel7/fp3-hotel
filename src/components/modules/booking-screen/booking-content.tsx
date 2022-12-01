@@ -1,19 +1,20 @@
 import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
 import ToastHelper from '@app/common/helpers/toast';
 import Input from '@app/components/elements';
+import Form from '@app/components/elements/form';
 import Header from '@app/components/widgets/header';
 import useYupValidationResolver from '@app/hooks/use-yup-validation-resolver';
 import * as React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { ScrollView, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
-import PriceSummary from './booking-price-summary';
+import BookingPriceSummary from './booking-price-summary';
 
 interface Props {
   hotel: HotelModel;
 }
-export default function BookingForm(props: Props) {
+export default function BookingContent(props: Props) {
   const { hotel } = props;
   const dispatch = useDispatch();
   const defaultValues = React.useMemo(
@@ -67,9 +68,9 @@ export default function BookingForm(props: Props) {
   );
 
   return (
-    <ScrollView>
-      <Header title="Booking Screen" titleCenter back />
-      <FormProvider {...methods}>
+    <Form methods={methods}>
+      <ScrollView>
+        <Header title="Booking Screen" titleCenter back />
         <View>
           <Input type="normal" name="orderer" label="name" placeholder="name" required />
           <Input type="normal" name="email" label="email" placeholder="email" required />
@@ -79,8 +80,8 @@ export default function BookingForm(props: Props) {
           <Input type="numeric" name="guests" label="guests" placeholder="guests" required />
           <Input type="submit" text="Book Now" onSubmit={onSubmit} />
         </View>
-        <PriceSummary />
-      </FormProvider>
-    </ScrollView>
+        <BookingPriceSummary />
+      </ScrollView>
+    </Form>
   );
 }

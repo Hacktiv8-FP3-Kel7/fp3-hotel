@@ -15,7 +15,7 @@ interface Props {
   onClick: () => void;
 }
 
-export default function HotelCard(props: Props) {
+export default function HomeHotelCard(props: Props) {
   const { data, onClick } = props;
 
   const favorite = useSelector(authSelector.favoriteSelector);

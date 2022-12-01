@@ -41,7 +41,10 @@ import BookingHotelScreen, {
   BOOKING_HOTEL_NAME,
   BOOKING_HOTEL_PARAMS,
 } from './screens/booking-hotel-screen';
-import Home from './modules/home/index';
+import {
+  SEARCH_HISTORY_SCREEN_NAME,
+  SEARCH_HISTORY_SCREEN_PARAMS,
+} from './screens/search-history-screen';
 
 const { width } = Dimensions.get('screen');
 
@@ -59,6 +62,7 @@ export type StackParamList = {
   [DETAIL_HOTEL_NAME]: DETAIL_HOTEL_PARAMS;
   [TERMS_POLICY_SCREEN_NAME]: TERMS_POLICY_SCREEN_PARAMS;
   [BOOKING_HOTEL_NAME]: BOOKING_HOTEL_PARAMS;
+  [SEARCH_HISTORY_SCREEN_NAME]: SEARCH_HISTORY_SCREEN_PARAMS;
 };
 export interface StackNavigationScreenProps<T extends keyof StackParamList> {
   navigation: StackNavigationProp<StackParamList, T>;

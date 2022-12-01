@@ -1,6 +1,5 @@
 import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
 import Text from '@app/components/elements/text';
-import HomeScreenHeader from '@app/components/modules/home-screen/home-screen-header';
 import Header from '@app/components/widgets/header';
 import * as React from 'react';
 import { FlatList, Image, StyleSheet, TouchableHighlight, View } from 'react-native';
@@ -19,7 +18,7 @@ function FacilityItem(props: { facilityName: string }) {
   );
 }
 
-export default function DetailHotel(props: Props) {
+export default function DetailContent(props: Props) {
   const { data, onClick } = props;
   return (
     <View style={styles.detailContainer}>
