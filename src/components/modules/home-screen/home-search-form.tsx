@@ -72,10 +72,10 @@ export default function BookingForm(props: Props) {
         <Input type="normal" name="name.like" label="Hotel" placeholder="Cari hotel" required />
         <View style={styles.fullContainer}>
           <View style={[styles.halfContainer, { marginRight: 5 }]}>
-            <Input type="normal" name="start" label="Check-In" placeholder="YYYY-MM-DD" required />
+            <Input type="date" name="start" label="Check-In" placeholder="YYYY-MM-DD" required />
           </View>
           <View style={styles.halfContainer}>
-            <Input type="normal" name="end" label="Check-Out" placeholder="YYYY-MM-DD" required />
+            <Input type="date" name="end" label="Check-Out" placeholder="YYYY-MM-DD" required />
           </View>
         </View>
         <Input type="numeric" name="starRating.gte" label="Rating" placeholder="Rating" required />
