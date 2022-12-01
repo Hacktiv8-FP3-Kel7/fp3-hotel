@@ -29,12 +29,19 @@ import SettingScreen, {
 } from './screens/settings-screen';
 import typography from './styles/typography';
 import { Dimensions, StyleSheet } from 'react-native';
-import { DETAIL_HOTEL_NAME, DETAIL_HOTEL_PARAMS } from './screens/detail-hotel-screen';
+import DetailHotelScreen, {
+  DETAIL_HOTEL_NAME,
+  DETAIL_HOTEL_PARAMS,
+} from './screens/detail-hotel-screen';
 import TermsPolicyScreen, {
   TERMS_POLICY_SCREEN_NAME,
   TERMS_POLICY_SCREEN_PARAMS,
 } from './screens/terms-policy-screen';
-import { BOOKING_HOTEL_NAME, BOOKING_HOTEL_PARAMS } from './screens/booking-hotel-screen';
+import BookingHotelScreen, {
+  BOOKING_HOTEL_NAME,
+  BOOKING_HOTEL_PARAMS,
+} from './screens/booking-hotel-screen';
+import Home from './modules/home/index';
 
 const { width } = Dimensions.get('screen');
 
@@ -190,6 +197,8 @@ export default function Router() {
           <>
             <Stack.Screen name={BOTTOM_TABS_NAME} component={Tab} />
             <Stack.Screen name={TERMS_POLICY_SCREEN_NAME} component={TermsPolicyScreen} />
+            <Stack.Screen name={DETAIL_HOTEL_NAME} component={DetailHotelScreen} />
+            <Stack.Screen name={BOOKING_HOTEL_NAME} component={BookingHotelScreen} />
           </>
         ) : (
           <>

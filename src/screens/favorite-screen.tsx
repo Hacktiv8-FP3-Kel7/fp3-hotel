@@ -1,5 +1,6 @@
 import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
-import HotelCard from '@app/modules/home/hotel-card';
+import Favorite from '@app/modules/favorite/favorite-index';
+import HotelCard from '@app/modules/home/home-hotel-card';
 import { authSelector } from '@app/redux/auth';
 import * as React from 'react';
 import { FlatList, View } from 'react-native';
@@ -14,8 +15,6 @@ export type FAVORITE_SCREEN_PARAMS = undefined;
 interface Props extends TabNavigationScreenProps<typeof FAVORITE_SCREEN_NAME> {}
 
 export default function FavoriteScreen(props: Props) {
-  const favorities = useSelector(authSelector.favoriteSelector);
-
   const onClick = React.useCallback(
     (hotel: HotelModel) => {
       props.navigation.navigate({
@@ -26,13 +25,5 @@ export default function FavoriteScreen(props: Props) {
     [props.navigation],
   );
 
-  return (
-    <View style={{ flex: 1 }}>
-      <FlatList
-        data={favorities}
-        renderItem={({ item }) => <HotelCard data={item} onClick={() => onClick(item)} />}
-        keyExtractor={(item) => item.hotelId}
-      />
-    </View>
-  );
+  return <Favorite onClick={(hotel) => onClick(hotel)} />;
 }

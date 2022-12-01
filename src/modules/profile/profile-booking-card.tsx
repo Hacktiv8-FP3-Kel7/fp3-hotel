@@ -2,6 +2,7 @@ import Text from '@app/components/elements/text';
 import { BookingModel } from '@app/redux/auth';
 import { View } from 'react-native';
 import * as React from 'react';
+import { string2money } from '@app/common/utils/string';
 
 interface Props {
   booking: BookingModel;

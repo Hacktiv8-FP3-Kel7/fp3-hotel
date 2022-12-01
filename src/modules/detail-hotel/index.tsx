@@ -48,7 +48,9 @@ export default function DetailHotel(props: Props) {
         horizontal
         showsHorizontalScrollIndicator={false}
       />
-      <TouchableHighlight onPress={() => onClick(data)} />
+      <TouchableHighlight onPress={() => onClick(data)}>
+        <Text>Booking</Text>
+      </TouchableHighlight>
     </View>
   );
 }

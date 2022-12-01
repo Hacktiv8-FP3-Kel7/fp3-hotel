@@ -5,10 +5,10 @@ import Header from '@app/components/widgets/header';
 import useYupValidationResolver from '@app/hooks/use-yup-validation-resolver';
 import * as React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
-import PriceSummary from './price-summary';
+import PriceSummary from './booking-price-summary';
 
 interface Props {
   hotel: HotelModel;
@@ -67,20 +67,20 @@ export default function BookingForm(props: Props) {
   );
 
   return (
-    <View>
+    <ScrollView>
       <Header title="Booking Screen" titleCenter back />
-      <View>
-        <FormProvider {...methods}>
+      <FormProvider {...methods}>
+        <View>
           <Input type="normal" name="orderer" label="name" placeholder="name" required />
           <Input type="normal" name="email" label="email" placeholder="email" required />
-          <Input type="phone" name="phoneNumber" label="phone" placeholder="phone" required />
+          <Input type="numeric" name="phoneNumber" label="phone" placeholder="phone" required />
           <Input type="numeric" name="days" label="days" placeholder="days" required />
           <Input type="numeric" name="rooms" label="rooms" placeholder="rooms" required />
           <Input type="numeric" name="guests" label="guests" placeholder="guests" required />
           <Input type="submit" text="Book Now" onSubmit={onSubmit} />
-        </FormProvider>
-      </View>
-      <PriceSummary />
-    </View>
+        </View>
+        <PriceSummary />
+      </FormProvider>
+    </ScrollView>
   );
 }

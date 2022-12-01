@@ -4,8 +4,8 @@ import HomeScreenHeader from '@app/components/modules/home-screen/home-screen-he
 import colors from '@app/styles/color';
 import * as React from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
-import BookingForm from './form';
-import HotelCard from './hotel-card';
+import BookingForm from './home-search-form';
+import HotelCard from './home-hotel-card';
 interface Props {
   onClick: (hotel: HotelModel) => void;
 }

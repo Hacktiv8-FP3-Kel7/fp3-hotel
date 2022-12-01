@@ -1,5 +1,6 @@
 import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
-import Home from '@app/modules/home';
+import Home from '@app/modules/home/index';
+// import Home from '@app/modules/home';
 import * as React from 'react';
 import { TabNavigationScreenProps } from '../router';
 import { DETAIL_HOTEL_NAME } from './detail-hotel-screen';

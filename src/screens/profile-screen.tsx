@@ -1,6 +1,5 @@
-import Profile from '@app/modules/profile';
+import Profile from '@app/modules/profile/index';
 import * as React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
 
 import { TabNavigationScreenProps } from '../router';
 

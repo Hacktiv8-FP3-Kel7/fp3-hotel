@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StackNavigationScreenProps } from '@app/router';
 import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
-import BookingForm from '@app/modules/booking/form';
+import BookingForm from '@app/modules/booking/booking-form';
 
 export const BOOKING_HOTEL_NAME = 'Booking Screen';
 export type BOOKING_HOTEL_PARAMS = {

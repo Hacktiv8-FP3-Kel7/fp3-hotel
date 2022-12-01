@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { authSelector } from '@app/redux/auth';
 import Text from '@app/components/elements/text';
-import BookingCard from './booking-card';
+import BookingCard from './profile-booking-card';
 import Header from '@app/components/widgets/header';
 
 export default function Profile() {

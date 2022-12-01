@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { StackNavigationScreenProps } from '@app/router';
 import { HotelModel } from '@app/api-hooks/hotel/hotel.model';
-import DetailHotel from '@app/modules/detail-hotel/index';
 import { BOOKING_HOTEL_NAME } from './booking-hotel-screen';
+import DetailHotel from '@app/modules/detail-hotel';
 export const DETAIL_HOTEL_NAME = 'Detail Screen';
+
 export type DETAIL_HOTEL_PARAMS = {
   data: HotelModel;
 };
