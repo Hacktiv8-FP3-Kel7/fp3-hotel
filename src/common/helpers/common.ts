@@ -24,7 +24,6 @@ export function MutationFetchFunction({
           url += `&${newParams}`;
         }
       }
-      console.log(url);
       resolve(
         await axios({
           method: method,

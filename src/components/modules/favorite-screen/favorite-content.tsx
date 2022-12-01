@@ -24,6 +24,7 @@ export default function FavoriteContent(props: Props) {
         <FlatList
           data={favorities}
           style={{ flex: 1, width: '100%' }}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => <HomeHotelCard data={item} onClick={() => onClick(item)} />}
           keyExtractor={(item) => item.hotelId}
         />
