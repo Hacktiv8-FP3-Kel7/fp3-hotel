@@ -199,7 +199,9 @@ export default function TextField(props: TextFieldProps) {
     <InputGroup error={!!fieldState.error} style={[styles.inputGroup, containerStyle]}>
       {label && renderLabel(!!fieldState.error)}
       {content}
-      {!!fieldState.error?.message && <Text>{fieldState.error?.message}</Text>}
+      {!!fieldState.error?.message && (
+        <Text style={styles.infoErrorText}>{fieldState.error?.message}</Text>
+      )}
     </InputGroup>
   );
 }
@@ -246,5 +248,8 @@ const styles = StyleSheet.create({
     color: colors.error,
     letterSpacing: -2,
     fontSize: 12,
+  },
+  infoErrorText: {
+    color: colors.error,
   },
 });

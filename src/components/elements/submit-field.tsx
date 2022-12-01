@@ -39,9 +39,11 @@ export default function SubmitField(props: SubmitFieldProps) {
       style={[
         styles.container,
         {
-          ...(!disabled
+          ...(disabled
             ? { backgroundColor: colors.lightSilver, color: colors.sonicSilver }
-            : { borderColor: colors.black, borderWidth: 1 }),
+            : isValid
+            ? { borderColor: colors.black, borderWidth: 1 }
+            : { borderColor: colors.error, borderWidth: 1 }),
         },
       ]}
     >
@@ -55,7 +57,12 @@ export default function SubmitField(props: SubmitFieldProps) {
       ) : (
         <></>
       )}
-      <Text style={[headlineTypography.bold7, { color: isValid ? colors.black : colors.white }]}>
+      <Text
+        style={[
+          headlineTypography.bold7,
+          { color: isValid || disabled ? colors.black : colors.red },
+        ]}
+      >
         {text}
       </Text>
       {rightIconComponent && (
