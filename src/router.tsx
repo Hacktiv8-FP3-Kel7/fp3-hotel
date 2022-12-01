@@ -217,6 +217,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+    left: (width - 40) / 20,
     right: 0,
     shadowOpacity: 0.1,
     shadowRadius: 4,
