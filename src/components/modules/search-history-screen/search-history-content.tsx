@@ -13,12 +13,20 @@ export default function SearchHistoryContent() {
   return (
     <>
       <Header title="History Screen" titleCenter back />
-      <View style={{ flex: 1, marginHorizontal: 16 }}>
-        {histories.length === 0 ? (
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <EmptyView title={'Tidak Ada History Pencarian'} />
-          </View>
-        ) : (
+
+      {histories.length === 0 ? (
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            flex: 1,
+            marginHorizontal: 16,
+          }}
+        >
+          <EmptyView title={'Tidak Ada History Pencarian'} />
+        </View>
+      ) : (
+        <View style={{ flex: 1, marginHorizontal: 16 }}>
           <FlatList
             showsVerticalScrollIndicator={false}
             data={histories}
@@ -26,8 +34,8 @@ export default function SearchHistoryContent() {
             renderItem={({ item }) => <SearchHistoryCard history={item} />}
             keyExtractor={(item) => item.id.toString()}
           />
-        )}
-      </View>
+        </View>
+      )}
     </>
   );
 }
