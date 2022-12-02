@@ -39,62 +39,64 @@ function FacilityItem(props: { facilityName: string }) {
 export default function DetailContent(props: Props) {
   const { data, onClick } = props;
   return (
-    <ScrollView style={styles.detailContainer}>
+    <>
       <Header title="Detail Hotel" titleCenter back />
-      <Image
-        style={styles.imageContainer}
-        source={{
-          uri:
-            data.images.find((image) => image.isHeroImage)?.url ??
-            'https://tempe.wajokab.go.id/img/no-image.png',
-        }}
-      />
-      <View style={{ marginHorizontal: 16 }}>
-        <View style={{ marginVertical: 8 }}>
-          <Text style={[headlineTypography.semiBold5, { margin: 8, textAlign: 'center' }]}>
-            {data.name}
-          </Text>
-          <Text>Kota : {data.address.city}</Text>
-          <Text>Negara : {data.address.country}</Text>
-          <Text style={[bodyTypography.bodyRegular4]}>Rating : {data.starRating}</Text>
-          <Text>Fasilitas :</Text>
-          {data.amenities.length === 0 ? (
-            <Text>Tidak ada Fasilitas</Text>
-          ) : (
-            <FlatList
-              data={data.amenities}
-              contentContainerStyle={{
-                padding: 16,
-              }}
-              renderItem={({ item }) => (
-                <FacilityItem facilityName={item.formatted} key={item.code} />
-              )}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
-          )}
-        </View>
-
-        <Text style={[headlineTypography.semiBold7]}>Deskripsi</Text>
-        <Text style={{ textAlign: 'justify' }}>{data.description.short}</Text>
-
-        <TouchableOpacity
-          style={{
-            borderColor: colors.black,
-            borderWidth: 1,
-            padding: 12,
-            borderRadius: 10,
-            marginVertical: 16,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
+      <ScrollView style={styles.detailContainer}>
+        <Image
+          style={styles.imageContainer}
+          source={{
+            uri:
+              data.images.find((image) => image.isHeroImage)?.url ??
+              'https://tempe.wajokab.go.id/img/no-image.png',
           }}
-          onPress={() => onClick(data)}
-        >
-          <Text>Booking</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+        />
+        <View style={{ marginHorizontal: 16 }}>
+          <View style={{ marginVertical: 8 }}>
+            <Text style={[headlineTypography.semiBold5, { margin: 8, textAlign: 'center' }]}>
+              {data.name}
+            </Text>
+            <Text>Kota : {data.address.city}</Text>
+            <Text>Negara : {data.address.country}</Text>
+            <Text style={[bodyTypography.bodyRegular4]}>Rating : {data.starRating}</Text>
+            <Text>Fasilitas :</Text>
+            {data.amenities.length === 0 ? (
+              <Text>Tidak ada Fasilitas</Text>
+            ) : (
+              <FlatList
+                data={data.amenities}
+                contentContainerStyle={{
+                  padding: 16,
+                }}
+                renderItem={({ item }) => (
+                  <FacilityItem facilityName={item.formatted} key={item.code} />
+                )}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+              />
+            )}
+          </View>
+
+          <Text style={[headlineTypography.semiBold7]}>Deskripsi</Text>
+          <Text style={{ textAlign: 'justify' }}>{data.description.short}</Text>
+
+          <TouchableOpacity
+            style={{
+              borderColor: colors.black,
+              borderWidth: 1,
+              padding: 12,
+              borderRadius: 10,
+              marginVertical: 16,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onPress={() => onClick(data)}
+          >
+            <Text>Booking</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </>
   );
 }
 

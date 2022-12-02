@@ -1,4 +1,4 @@
-import { FlatList, View } from 'react-native';
+import { FlatList, Image, StyleSheet, View } from 'react-native';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { authSelector } from '@app/redux/auth';
@@ -31,13 +31,14 @@ export default function ProfileContent() {
           },
           shadowOpacity: 0.25,
           shadowRadius: 3.84,
-
           elevation: 5,
-
           borderRadius: 8,
         }}
       >
-        <Text style={[headlineTypography.bold5]}>{user?.firstName || 'No Name'}</Text>
+        <Image style={styles.imageHero} source={require('../../../../assets/aheng.jpeg')} />
+        <Text style={[headlineTypography.bold5, { textTransform: 'capitalize', marginTop: 12 }]}>
+          {user?.firstName || 'No Name'}
+        </Text>
         <View
           style={{
             flexDirection: 'row',
@@ -56,10 +57,10 @@ export default function ProfileContent() {
         {bookings.length === 0 ? (
           <EmptyView title={'Tidak Ada History Booking'} />
         ) : (
-          <View style={{ marginTop: 16, marginBottom: 180 }}>
+          <View>
             <FlatList
               data={bookings}
-              contentContainerStyle={{ paddingHorizontal: 8, marginBottom: 180 }}
+              contentContainerStyle={{ paddingHorizontal: 8, paddingBottom: 180 }}
               renderItem={({ item }) => <BookingCard booking={item} />}
               keyExtractor={(item) => item.hotelId}
             />
@@ -69,3 +70,12 @@ export default function ProfileContent() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  imageHero: {
+    width: 100,
+    height: 100,
+    resizeMode: 'cover',
+    borderRadius: 999,
+  },
+});

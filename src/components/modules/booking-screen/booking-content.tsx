@@ -4,10 +4,11 @@ import Input from '@app/components/elements';
 import Form from '@app/components/elements/form';
 import Header from '@app/components/widgets/header';
 import useYupValidationResolver from '@app/hooks/use-yup-validation-resolver';
+import colors from '@app/styles/color';
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import BookingPriceSummary from './booking-price-summary';
@@ -58,7 +59,7 @@ export default function BookingContent(props: Props) {
   const onSubmit = React.useCallback(
     async (values: typeof defaultValues) => {
       try {
-        values.totalPrice = values.price * values.rooms; //generate totalPrice
+        values.totalPrice = values.price * values.rooms * values.days; //generate totalPrice
 
         dispatch.auth.addBooking({ ...values, ...hotel, transactionAt: new Date() }); // add to booking
 
@@ -72,47 +73,50 @@ export default function BookingContent(props: Props) {
   );
 
   return (
-    <Form methods={methods}>
-      <ScrollView>
-        <Header title="Booking Screen" titleCenter back />
-        <View
-          style={{
-            paddingHorizontal: 36,
-            paddingVertical: 24,
-            // margin: 16,
-            marginHorizontal: 16,
-            marginTop: 16,
-            backgroundColor: 'white',
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 2,
-              height: 1,
-            },
-            shadowOpacity: 0.2,
-            shadowRadius: 1.41,
-            elevation: 5,
-            borderRadius: 8,
-          }}
-        >
-          <Input type="normal" name="orderer" label="name" placeholder="name" required />
-          <Input type="normal" name="email" label="email" placeholder="email" required />
-          <View style={{ flexDirection: 'row' }}>
-            <View style={{ flex: 1, marginHorizontal: 2 }}>
-              <Input type="numeric" name="days" label="days" placeholder="days" required />
+    <>
+      <Header title="Booking Screen" titleCenter back />
+      <Form methods={methods}>
+        <ScrollView>
+          <View style={styles.cardContainer}>
+            <Input type="normal" name="orderer" label="Name" placeholder="name" required />
+            <Input type="normal" name="email" label="Email" placeholder="email" required />
+            <View style={{ flexDirection: 'row' }}>
+              <View style={{ flex: 1, marginHorizontal: 2 }}>
+                <Input type="numeric" name="days" label="Days" placeholder="days" required />
+              </View>
+              <View style={{ flex: 1, marginHorizontal: 2 }}>
+                <Input type="numeric" name="rooms" label="Rooms" placeholder="rooms" required />
+              </View>
+              <View style={{ flex: 1, marginHorizontal: 2 }}>
+                <Input type="numeric" name="guests" label="Guests" placeholder="guests" required />
+              </View>
             </View>
-            <View style={{ flex: 1, marginHorizontal: 2 }}>
-              <Input type="numeric" name="rooms" label="rooms" placeholder="rooms" required />
-            </View>
-            <View style={{ flex: 1, marginHorizontal: 2 }}>
-              <Input type="numeric" name="guests" label="guests" placeholder="guests" required />
-            </View>
-          </View>
-          <Input type="numeric" name="phoneNumber" label="phone" placeholder="phone" required />
+            <Input type="numeric" name="phoneNumber" label="Phone" placeholder="phone" required />
 
-          <Input type="submit" text="Book Now" onSubmit={onSubmit} />
-        </View>
-        <BookingPriceSummary />
-      </ScrollView>
-    </Form>
+            <Input type="submit" text="Book Now" onSubmit={onSubmit} />
+          </View>
+          <BookingPriceSummary />
+        </ScrollView>
+      </Form>
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  cardContainer: {
+    paddingHorizontal: 36,
+    paddingVertical: 24,
+    marginHorizontal: 16,
+    marginTop: 16,
+    backgroundColor: colors.white,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    elevation: 5,
+    borderRadius: 8,
+  },
+});

@@ -23,7 +23,6 @@ export default function BookingCard(props: Props) {
         padding: 16,
         backgroundColor: 'white',
         borderRadius: 8,
-
         shadowColor: '#000',
         shadowOffset: {
           width: 0,
@@ -31,7 +30,6 @@ export default function BookingCard(props: Props) {
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 5,
       }}
       onPress={() => {}}
@@ -43,7 +41,7 @@ export default function BookingCard(props: Props) {
         Nama Pemesan : {orderer}
       </Text>
       <View style={{ marginVertical: 8 }}>
-        <Text style={[bodyTypography.bodyRegular4, { marginVertical: 2 }]}>Kontak</Text>
+        <Text style={[bodyTypography.bodyRegular4, { marginVertical: 2 }]}>Kontak : </Text>
         <Text style={[bodyTypography.bodyRegular4, { marginVertical: 2 }]}>
           {email} - {phoneNumber}
         </Text>

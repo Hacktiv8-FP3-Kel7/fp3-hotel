@@ -6,6 +6,7 @@ import * as React from 'react';
 import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import HomeHotelCard from './home-hotel-card';
 import HomeAccordionForm from './home-accordion-form';
+import EmptyView from '@app/components/widgets/empty-view';
 interface Props {
   onClick: (hotel: HotelModel) => void;
 }
@@ -46,6 +47,11 @@ export default function HomeContent(props: Props) {
           <FlatList
             showsVerticalScrollIndicator={false}
             data={hotels}
+            ListEmptyComponent={
+              <View style={styles.center}>
+                <EmptyView title={'Hotel Tidak Ditemukan'} />
+              </View>
+            }
             refreshControl={<RefreshControl refreshing={isFetching} onRefresh={refetch} />}
             contentContainerStyle={{ paddingBottom: 120 }}
             renderItem={({ item }) => <HomeHotelCard data={item} onClick={() => onClick(item)} />}
@@ -67,5 +73,9 @@ const styles = StyleSheet.create({
   },
   activityIndicatorContainer: {
     margin: 16,
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
