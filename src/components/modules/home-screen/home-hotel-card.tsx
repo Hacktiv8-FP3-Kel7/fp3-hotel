@@ -88,7 +88,7 @@ export default function HomeHotelCard(props: Props) {
           isFavorite ? onRemoveFavorite(data) : onAddFavorite(data);
         }}
       >
-        <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={24} color={colors.error} />
+        <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={28} color={colors.error} />
       </TouchableHighlight>
     </TouchableOpacity>
   );
@@ -131,10 +131,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'white',
     borderRadius: 9999,
-    padding: 4,
+    padding: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    right: 0,
+    right: 10,
+    top: 10,
   },
   informationContainer: {
     flexDirection: 'row',

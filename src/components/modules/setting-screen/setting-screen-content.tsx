@@ -14,6 +14,7 @@ import size from '@app/styles/size';
 import { SETTINGS_SCREEN_NAME } from '@app/screens/settings-screen';
 import { TERMS_POLICY_SCREEN_NAME } from '@app/screens/terms-policy-screen';
 import { SEARCH_HISTORY_SCREEN_NAME } from '@app/screens/search-history-screen';
+import ToastHelper from '@app/common/helpers/toast';
 
 interface Props extends TabNavigationScreenProps<typeof SETTINGS_SCREEN_NAME> {}
 
@@ -117,11 +118,21 @@ export default function SettingContent(props: Props) {
           onBlur={(value) => onProfileChange({ value, name: 'gender' })}
         />
         <Divider />
-        <Action text="Language" onPress={() => {}} />
+        <Action
+          text="Language"
+          onPress={() => {
+            ToastHelper.info('Coming Soon');
+          }}
+        />
         <Divider />
         <Action text="Search History" onPress={onClickSearch} />
         <Divider />
-        <Action text="Report A Problem" onPress={() => {}} />
+        <Action
+          text="Report A Problem"
+          onPress={() => {
+            ToastHelper.info('Coming Soon');
+          }}
+        />
       </View>
       <View style={styles.separatorVertical} />
       <View style={styles.cardContainer}>

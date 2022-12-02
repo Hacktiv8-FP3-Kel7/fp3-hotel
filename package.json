@@ -31,6 +31,7 @@
     "expo-status-bar": "~1.4.2",
     "immer": "^9.0.16",
     "invariant": "^2.2.4",
+    "lottie-react-native": "^5.1.4",
     "numeral": "^2.0.6",
     "qs": "^6.11.0",
     "react": "18.1.0",

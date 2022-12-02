@@ -6,6 +6,7 @@ import Text from '@app/components/elements/text';
 import BookingCard from './profile-booking-card';
 import Header from '@app/components/widgets/header';
 import { bodyTypography, headlineTypography } from '@app/styles/typography';
+import EmptyView from '@app/components/widgets/empty-view';
 
 export default function ProfileContent() {
   const user = useSelector(authSelector.userSelector);
@@ -51,18 +52,20 @@ export default function ProfileContent() {
         </View>
       </View>
       <Text style={[headlineTypography.bold5, { margin: 16 }]}>History Booking</Text>
-      {bookings.length === 0 ? (
-        <Text style={[headlineTypography.bold5, { margin: 16 }]}>Tidak ada history booking</Text>
-      ) : (
-        <View style={{ marginTop: 16, marginBottom: 180 }}>
-          <FlatList
-            data={bookings}
-            contentContainerStyle={{ paddingHorizontal: 8, marginBottom: 180 }}
-            renderItem={({ item }) => <BookingCard booking={item} />}
-            keyExtractor={(item) => item.hotelId}
-          />
-        </View>
-      )}
+      <View style={{ alignItems: 'center' }}>
+        {bookings.length === 0 ? (
+          <EmptyView title={'Tidak Ada History Booking'} />
+        ) : (
+          <View style={{ marginTop: 16, marginBottom: 180 }}>
+            <FlatList
+              data={bookings}
+              contentContainerStyle={{ paddingHorizontal: 8, marginBottom: 180 }}
+              renderItem={({ item }) => <BookingCard booking={item} />}
+              keyExtractor={(item) => item.hotelId}
+            />
+          </View>
+        )}
+      </View>
     </View>
   );
 }
