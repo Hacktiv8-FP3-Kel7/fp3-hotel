@@ -13,11 +13,11 @@ export default function SearchHistoryContent() {
   return (
     <>
       <Header title="History Screen" titleCenter back />
-      <View
-        style={{ flex: 1, marginHorizontal: 16, alignItems: 'center', justifyContent: 'center' }}
-      >
+      <View style={{ flex: 1, marginHorizontal: 16 }}>
         {histories.length === 0 ? (
-          <EmptyView title={'Tidak Ada History Pencarian'} />
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <EmptyView title={'Tidak Ada History Pencarian'} />
+          </View>
         ) : (
           <FlatList
             showsVerticalScrollIndicator={false}
