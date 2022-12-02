@@ -102,7 +102,9 @@ export default function Header(props: Props) {
             {(leftComponent || back) && (
               <View style={[styles.left, { flexShrink: 1 }]}>{renderLeft()}</View>
             )}
-            {title && <View style={styles.center}>{renderTitle()}</View>}
+            {title && (
+              <View style={[styles.center, { left: back ? -10 : 0 }]}>{renderTitle()}</View>
+            )}
             {rightComponent && <View style={[styles.right]}>{renderRight()}</View>}
           </>
         )}

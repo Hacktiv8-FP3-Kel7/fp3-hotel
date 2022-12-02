@@ -61,7 +61,7 @@ export default function HomeHotelCard(props: Props) {
             {data.address.city} - {data.address.country}
           </Text>
           <View style={styles.ratingContainer}>
-            <Ionicons name="star" size={24} color={colors.grey} />
+            <Ionicons name="star" size={24} color={colors.green} />
             <Text style={[bodyTypography.bodyRegular4, { marginLeft: 5 }]}>{data.starRating}</Text>
           </View>
         </View>
@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
   },
   ratingContainer: {
     // backgroundColor: 'black',
+    marginTop: 4,
     flexDirection: 'row',
     alignItems: 'center',
   },

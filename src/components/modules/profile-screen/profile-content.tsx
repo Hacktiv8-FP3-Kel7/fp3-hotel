@@ -15,7 +15,7 @@ export default function ProfileContent() {
 
   return (
     <View>
-      <Header title="Profile Screen" titleCenter back />
+      <Header title="Profile Screen" titleCenter />
       <View
         style={{
           margin: 16,

@@ -29,7 +29,10 @@ export default function HomeContent(props: Props) {
     <View style={styles.homeContainer}>
       <HomeScreenHeader />
       <HomeAccordionForm
-        onSubmit={(input) => setParams({ params: input })}
+        onSubmit={(input) => {
+          setParams({ params: input });
+          setShow(false);
+        }}
         show={show}
         onToggle={onToggle}
       />
