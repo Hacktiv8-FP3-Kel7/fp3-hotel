@@ -28,7 +28,7 @@ interface Props {
   topSafeArea?: boolean;
 }
 
-export const HEADER_HEIGHT = 60;
+export const HEADER_HEIGHT = 60 + 10;
 
 export default function Header(props: Props) {
   const navigation = useNavigation();
